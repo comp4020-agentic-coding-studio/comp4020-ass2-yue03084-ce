@@ -103,6 +103,17 @@
   font-size: calc(1em * var(--nap-text-scale));
 }
 
+/* The standfirst is `1.25rem` in the theme (`base.css`), and rem is measured
+   from the root, which the scale above never touches — so while everything
+   under it grew, the paragraph meant to lead the page stayed at 22.5px and
+   ended up level with the 21.6px body text beneath it. Measured, not spotted:
+   it reads as a lead by being larger, and it had stopped being larger. The
+   same ratio, re-expressed against the scaled parent instead of the root, so
+   it tracks the base size rather than restating it. */
+[data-nap="on"] .at-main .lead {
+  font-size: 1.25em;
+}
+
 /* The navigation collapses: at every width the nav falls back to the folded
    state the theme already ships for phones, rather than to a state invented
    here. The declarations below are the theme's own mobile block, re-asserted

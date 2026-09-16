@@ -26,20 +26,27 @@ import "../styles/nap-mode.css";
 
   const root = document.documentElement;
 
-  // Authoritative even when `localStorage` throws (private windows, blocked
-  // site data). Storage is a mirror of this, best-effort — so a nap always
-  // works, and merely stops outliving the page when it can't be written.
+  // Storage is the authority; `memory` is the fallback for when it throws
+  // (private windows, blocked site data), so a nap still works there and
+  // merely stops outliving the page.
+  //
+  // It reads as the safer choice to take whichever of the two is later. It
+  // isn't: memory is per-tab, so the maximum of the two lets a stale tab
+  // outvote storage — waking up in one tab would leave another napping, and
+  // the napping tab would then write its own expiry back. One authority, one
+  // named fallback. Because the tick below re-reads storage every second,
+  // this also means ending a nap in one tab ends it in all of them.
   let memory = 0;
   let ticking: ReturnType<typeof setInterval> | null = null;
 
   /** The nap's expiry, or 0 when there is no nap running. */
   function readUntil(): number {
-    let until = memory;
+    let until: number;
     try {
       const stored = Number(localStorage.getItem(NAP_STORAGE_KEY));
-      if (Number.isFinite(stored)) until = Math.max(until, stored);
+      until = Number.isFinite(stored) ? stored : 0;
     } catch {
-      /* Fall back to memory. */
+      until = memory;
     }
     return until > Date.now() ? until : 0;
   }
@@ -54,15 +61,26 @@ import "../styles/nap-mode.css";
     }
   }
 
+  /** Fold an open menu shut, so a nap starts from the collapsed state. */
+  function collapseNav(): void {
+    for (const toggle of document.querySelectorAll(".at-nav-toggle")) {
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  }
+
   // The theme decides nav link reachability from whether its toggle is visible
   // and expanded; Nap Mode changes the first of those, so it owes the same
   // sync afterwards. Same condition as the theme's own `syncNavInert`, because
   // two answers to "are these links reachable?" is one answer too many.
-  function syncNav(collapse: boolean): void {
+  //
+  // Order matters and cost a bug: this reads computed style, so it has to run
+  // *after* `data-nap` is on the element, or it measures the nav the nap has
+  // not collapsed yet and leaves hidden links in the tab order. `render` calls
+  // it last for exactly that reason.
+  function syncNavInert(): void {
     for (const wrapper of document.querySelectorAll<HTMLElement>(".at-nav-links-wrapper")) {
       const toggle = wrapper.closest(".at-nav")?.querySelector(".at-nav-toggle");
       if (!toggle) continue;
-      if (collapse) toggle.setAttribute("aria-expanded", "false");
       wrapper.inert =
         getComputedStyle(toggle).display !== "none" &&
         toggle.getAttribute("aria-expanded") !== "true";
@@ -85,6 +103,14 @@ import "../styles/nap-mode.css";
       // announced every second is not an accessibility feature.
       if (time) time.textContent = napping ? `${minutesLeft} min` : "";
     }
+
+    // Last, and inside `render` rather than at the call sites, because it
+    // reads computed style and so must follow `data-nap`. Keeping it here
+    // cost a second bug to learn: when the nap expired on its own the tick
+    // called `render` but not the sync, so the nav came back visible and
+    // still `inert` — links on screen that the keyboard could not reach.
+    // Reachability follows from nap state, so it belongs with it.
+    syncNavInert();
   }
 
   function tick(): void {
@@ -101,7 +127,7 @@ import "../styles/nap-mode.css";
   function onClick(): void {
     const until = readUntil() ? 0 : Date.now() + NAP_MS;
     writeUntil(until);
-    syncNav(until > 0);
+    if (until) collapseNav();
     tick();
   }
 
@@ -115,7 +141,6 @@ import "../styles/nap-mode.css";
       button.addEventListener("click", onClick);
     }
     tick();
-    syncNav(false);
   }
 
   setup();

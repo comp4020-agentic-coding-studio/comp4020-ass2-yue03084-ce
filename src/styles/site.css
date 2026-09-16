@@ -1,0 +1,20 @@
+/* Site-level corrections to the packages, kept apart from Nap Mode's
+ * stylesheet so the two aren't read as one decision. Unlayered, for the same
+ * reason nap-mode.css is: the packages style from inside `@layer at.*`.
+ */
+
+/* `astro-course-university` renders the "Related" heading at 1rem, uppercase,
+ * weight 600, and lets it inherit `h2`'s brand gold. Gold at its own 63.6%
+ * lightness is about 3.4:1 on the light page background — fine for large text,
+ * but 16px semibold is not large text, so the floor is 4.5:1 and it misses.
+ * axe-core reports it `serious`; found by auditing the rendered page, not by
+ * `pnpm build`, whose accessibility walk passes all sixteen pages.
+ *
+ * Re-lit to 44% with `c h` holding chroma and hue, so it stays the same brand
+ * colour: 6.6:1 on the light background. Dark mode never had the problem —
+ * gold on the dark surface is already about 5.3:1 — so it keeps the brand
+ * value untouched.
+ */
+.related-content h2 {
+  color: light-dark(oklch(from var(--at-primary) 44% c h), var(--at-primary));
+}
