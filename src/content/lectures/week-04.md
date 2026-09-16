@@ -17,6 +17,18 @@ the same one: lunch. It is a good explanation. It is also wrong, and what
 replaces it is the reason this course can claim the nap is a biological need
 rather than a habit.
 
+![A two-ink chart spans a single day, morning at the left edge and night at
+the right. A thin straight ink line climbs steadily from low on the left to
+high on the right, then drops straight back down at the far edge and begins
+climbing again — sleep pressure, rising all day and reset only by sleep.
+Layered over it, a smooth ink-and-gold wave rises to a rounded peak in the
+late morning, dips into a shallow hollow a little before the midpoint of the
+day — marked with a small ringed circle sitting on a faint gold band —
+climbs again to a second, evening peak, and then falls into a much deeper
+trough near the right edge before turning back up: the circadian rhythm's
+two troughs, one small and marked in the afternoon, one far deeper at
+night.](/images/lectures/week-04.svg)
+
 ## Outline
 
 - **Two processes, not one.** Sleep pressure rises steadily the longer you are

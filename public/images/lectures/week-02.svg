@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <pattern id="grain" width="13.0" height="13.0" patternUnits="userSpaceOnUse">
+    <circle cx="3.2" cy="3.2" r="1.6" fill="#b97d1c" opacity="0.45"/>
+  </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#f7f3ea"/>
+  <rect width="960" height="540" fill="url(#grain)"/>
+  
+    <defs><pattern id="week02-deadzone-hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="12" height="12" fill="none"/>
+    <line x1="0" y1="0" x2="0" y2="12" stroke="#16130d" stroke-width="3" opacity="0.55"/>
+  </pattern></defs>
+    <path d="M80,110 L220,110 L220,230 L400,230 L400,400 L620,400 L620,280 L800,280 L800,110 L880,110" fill="none" stroke="#b97d1c" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round" transform="translate(6.80, 8.32)"/><path d="M80,110 L220,110 L220,230 L400,230 L400,400 L620,400 L620,280 L800,280 L800,110 L880,110" fill="none" stroke="#16130d" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="80.0" y="92.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="1">awake</text>
+    <text x="310.0" y="214.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="1">light sleep</text>
+    <text x="510.0" y="434.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="0.85">slow-wave sleep</text>
+    <text x="710.0" y="264.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="1">REM</text>
+
+    <path d="M80,408 L80,445" fill="none" stroke="#16130d" stroke-width="1.89" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" stroke-dasharray="3 6"/><path d="M400,408 L400,445" fill="none" stroke="#16130d" stroke-width="1.89" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" stroke-dasharray="3 6"/><path d="M620,408 L620,445" fill="none" stroke="#16130d" stroke-width="1.89" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" stroke-dasharray="3 6"/><path d="M880,408 L880,445" fill="none" stroke="#16130d" stroke-width="1.89" stroke-linecap="round" stroke-linejoin="round" opacity="0.4" stroke-dasharray="3 6"/>
+    <rect x="80.0" y="445.0" width="320.0" height="46.0" fill="#b97d1c" opacity="0.4"/>
+    <rect x="400" y="445" width="220" height="46" fill="url(#week02-deadzone-hatch)" stroke="#16130d" stroke-width="3.78"/>
+    <rect x="620.0" y="445.0" width="260.0" height="46.0" fill="#b97d1c" opacity="0.4"/>
+    <rect x="80" y="445" width="800" height="46" fill="none" stroke="#16130d" stroke-width="1.36" opacity="0.5"/>
+
+    <text x="240.0" y="474.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16130d" opacity="1">safe: short nap</text>
+    <text x="510.0" y="474.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="16" font-weight="700" fill="#16130d" opacity="1">dead zone</text>
+    <text x="750.0" y="474.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="16" font-weight="600" fill="#16130d" opacity="1">safe: full cycle</text>
+  
+</svg>

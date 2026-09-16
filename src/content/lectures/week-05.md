@@ -18,6 +18,8 @@ answer is not that people stopped wanting to sleep in the afternoon. It is that
 a particular way of organising work made it impossible, and then made it
 shameful.
 
+![A two-ink diagram: a smooth arc rises and falls like the sun's path across a day, with four unevenly spaced dots along it marking where one task ended and another began. Beneath it, a straight ruled line is marked off in perfectly even ticks, labelled the clock's time. A large clock face, its two hands stacked straight up, sits on top of the arc's falling side — its hard circular edge erases a stretch of the curve, and a small gold dot marks the exact point where the smooth line disappears behind it.](/images/lectures/week-05.svg)
+
 ## Outline
 
 - **Task time and clock time.** Before industrial work, the day was organised

@@ -17,6 +17,16 @@ that, because it did not remove it everywhere, and the places that kept it did
 not keep the same thing. Three regimes, and the differences between them are
 more instructive than the fact that all three exist.
 
+![A two-ink diagram of two crossing axes on plain paper: a horizontal line
+labelled private at its left end and public at its right, and a vertical line
+labelled scheduled at its top and unscheduled at its bottom, meeting at the
+centre. Three labelled circles sit on the cross. Toward the private,
+unscheduled corner, a plain ink circle is labelled siesta. Near the top,
+close to the scheduled end and roughly centred left-to-right, a circle drawn
+with a gold echo behind its ink outline — the diagram's one emphasised mark
+— is labelled wǔxiū. Toward the public, unscheduled corner, a second plain
+ink circle is labelled inemuri.](/images/lectures/week-06.svg)
+
 ## Outline
 
 - **Siesta.** A break in the working day itself, historically tied to heat and

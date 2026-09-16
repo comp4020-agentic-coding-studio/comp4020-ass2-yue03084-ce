@@ -17,6 +17,8 @@ studies its science, its history, and its return, and this lecture sets up the
 first of those by answering a question most people think is already settled:
 what a nap actually is.
 
+![A two-ink diagram of one sleep cycle drawn as a stepped hypnogram. A line starts flat at 'awake', steps down onto a 'light sleep' plateau, steps down again onto a 'slow-wave sleep' plateau at the bottom of the chart, then steps back up onto a 'REM' plateau before returning to 'awake'. Four small ringed markers sit at different depths along the descending half of the line only — one just under the awake line, one in light sleep, one on the drop between light and slow-wave sleep, and one already inside slow-wave sleep — each a different point where a nap could have been cut off, showing that the depth reached when it stops is what decides the outcome, not how long the eyes were closed.](/images/lectures/week-01.svg)
+
 ## Outline
 
 - **The course's claim.** Most adults feel a dip in alertness in the early

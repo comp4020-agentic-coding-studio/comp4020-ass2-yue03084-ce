@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <pattern id="grain" width="13.0" height="13.0" patternUnits="userSpaceOnUse">
+    <circle cx="3.2" cy="3.2" r="1.6" fill="#b97d1c" opacity="0.45"/>
+  </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#f7f3ea"/>
+  <rect width="960" height="540" fill="url(#grain)"/>
+  
+    <text x="80.0" y="60.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="24" font-weight="600" fill="#16130d" opacity="1">circadian rhythm</text>
+    <text x="80.0" y="90.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="500" fill="#16130d" opacity="0.7">sleep pressure</text>
+
+    <rect x="340.0" y="120.0" width="120.0" height="340.0" fill="#b97d1c" opacity="0.14" rx="6"/>
+
+    <path d="M80,460 L880,460" fill="none" stroke="#16130d" stroke-width="3.78" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    <path d="M80,460 L80,448.0" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M400,460 L400,448.0" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M780,460 L780,448.0" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+    <text x="80.0" y="490.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="0.75">morning</text><text x="400.0" y="490.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="0.75">afternoon</text><text x="780.0" y="490.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="20" font-weight="500" fill="#16130d" opacity="0.75">night</text>
+
+    <path d="M80,400 L780,160 L784,404 L880,372" fill="none" stroke="#16130d" stroke-width="5.29" stroke-linecap="round" stroke-linejoin="round" opacity="0.85"/>
+    <path d="M80,230 Q230,150 315.0,206.0 Q400,262 510.0,217.0 Q620,172 700.0,301.0 Q780,430 830.0,340.0 T880,250" fill="none" stroke="#b97d1c" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round" transform="translate(6.80, 8.32)"/><path d="M80,230 Q230,150 315.0,206.0 Q400,262 510.0,217.0 Q620,172 700.0,301.0 Q780,430 830.0,340.0 T880,250" fill="none" stroke="#16130d" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <circle cx="400.0" cy="262.0" r="8.3" fill="#f7f3ea" stroke="#16130d" stroke-width="3.00"/>
+    <text x="400.0" y="145.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16130d" opacity="1">afternoon dip</text>
+  
+</svg>

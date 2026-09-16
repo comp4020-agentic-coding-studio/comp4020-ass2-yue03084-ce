@@ -17,6 +17,8 @@ to be allowed to sleep? This lecture takes that question out of other people's
 cultures and puts it where it is harder to look at, which is the room you work
 in.
 
+![A two-ink diagram: two lines run from left to right across the frame, close together at the left edge and spreading steadily apart toward the right, so the gap between them forms a wedge that is narrow on the left and wide on the right. The narrow gap is shaded faintly and holds a small open eye shape, its pupil watching. The wide gap on the right holds a simple closed door — a rectangle with a vertical seam and a small knob. A caption under the narrow end reads 'judged by the hour', a caption under the wide end reads 'judged over months', and a label above the widening gap reads 'room to rest'.](/images/lectures/week-07.svg)
+
 ## Outline
 
 - **Autonomy tracks seniority.** The people most able to close a door are the

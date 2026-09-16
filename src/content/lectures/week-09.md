@@ -17,6 +17,8 @@ This week is about the people for whom the nap is least optional, and about a
 pattern that holds across all three: the strength of someone's claim to daytime
 sleep is a poor predictor of whether they are permitted it.
 
+![A two-ink diagram: three horizontal rows sit stacked over a shared day-long axis, with a faint shaded band running down the centre of the frame marking night (both edges of the axis read as day). The top row, labelled infants, is a scatter of nine short marks spread evenly across the whole width, day and night alike. The middle row, labelled older adults, is a bar broken into three uneven pieces inside the night band, with two smaller stray fragments sitting out in the daytime on either side. The bottom row, labelled shift workers, is a single solid bar drawn in the misregistered gold-and-ink line, sitting squarely in the daytime well outside the night band — the one row whose sleep is not where the band says it should be.](/images/lectures/week-09.svg)
+
 ## Outline
 
 - **Infants and children.** Polyphasic by default, consolidating gradually over

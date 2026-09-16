@@ -17,6 +17,8 @@ arrived at: buy something. The nap pod is a genuinely interesting object,
 because it solves a real problem and, in solving it that way, settles a
 political question quietly and in the buyer's favour.
 
+![A two-ink diagram split in two. On the left, a tight square grid of small ink dots — fifteen rows of fifteen, two hundred and twenty-five in all — stands for an entire workforce. Two dots at the grid's corner are drawn larger and filled gold instead of ink, and beside them sits a single rounded capsule shape, outlined in the same gold-and-ink misregistered line as the homepage hero: the pod, and the only two people it reaches. A caption under the grid reads 'the floor'; a caption under the capsule reads 'bought once'. On the right, a horizontal row of evenly spaced ink bars runs the width of the frame above a baseline, fading toward both edges to suggest it continues off the page, captioned 'shorter shifts, every day' — a continuous change set against the pod's isolated, static shape.](/images/lectures/week-08.svg)
+
 ## Outline
 
 - **What the pod is for.** It makes daytime sleep legible to an organisation.

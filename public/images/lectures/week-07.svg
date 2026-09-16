@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <pattern id="grain" width="13.0" height="13.0" patternUnits="userSpaceOnUse">
+    <circle cx="3.2" cy="3.2" r="1.6" fill="#b97d1c" opacity="0.45"/>
+  </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#f7f3ea"/>
+  <rect width="960" height="540" fill="url(#grain)"/>
+  
+    <text x="480.0" y="62.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="24" font-weight="600" fill="#16130d" opacity="1">room to rest</text>
+    <path d="M110,232 L850,108 L850,432 L110,308 Z" fill="#b97d1c" opacity="0.12"/>
+    <path d="M110,232 L850,108" fill="none" stroke="#b97d1c" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round" transform="translate(6.80, 8.32)"/><path d="M110,232 L850,108" fill="none" stroke="#16130d" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M110,308 L850,432" fill="none" stroke="#b97d1c" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round" transform="translate(6.80, 8.32)"/><path d="M110,308 L850,432" fill="none" stroke="#16130d" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <path d="M126,270 Q160,241.2 194,270 Q160,298.8 126,270 Z" fill="none" stroke="#16130d" stroke-width="4.54" stroke-linejoin="round"/>
+    <circle cx="160" cy="270.0" r="5.29" fill="#16130d"/>
+    <path d="M152.7,236.2 L149.5,220.2" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M160.0,235.6 L160.0,219.6" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/><path d="M167.3,236.2 L170.5,220.2" fill="none" stroke="#16130d" stroke-width="2.65" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+
+    <rect x="732.0" y="170.0" width="96" height="200.0" fill="none" stroke="#16130d" stroke-width="4.54"/>
+    <path d="M780,170.0 L780,370.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    <circle cx="798.0" cy="270.0" r="3.02" fill="#16130d"/>
+
+    <text x="110.0" y="470.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="1">judged by the hour</text>
+    <text x="850.0" y="470.0" text-anchor="end" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="1">judged over months</text>
+  
+</svg>

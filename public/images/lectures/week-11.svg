@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <pattern id="grain" width="13.0" height="13.0" patternUnits="userSpaceOnUse">
+    <circle cx="3.2" cy="3.2" r="1.6" fill="#b97d1c" opacity="0.45"/>
+  </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#f7f3ea"/>
+  <rect width="960" height="540" fill="url(#grain)"/>
+  
+    <text x="80.0" y="70.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="24" font-weight="600" fill="#16130d" opacity="1">retention</text>
+    <text x="80.0" y="505.0" text-anchor="start" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="0.75">time since learning</text>
+
+    <rect x="420" y="90" width="120" height="360" fill="#b97d1c" opacity="0.16"/>
+    <text x="480.0" y="110.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="18" font-weight="600" fill="#16130d" opacity="0.85">nap</text>
+
+    <path d="M80,460 L880,460" fill="none" stroke="#16130d" stroke-width="4.16" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+    <path d="M80.0,460 L80.0,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M213.3,460 L213.3,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M346.7,460 L346.7,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M480.0,460 L480.0,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M613.3,460 L613.3,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M746.7,460 L746.7,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/><path d="M880.0,460 L880.0,448.0" fill="none" stroke="#16130d" stroke-width="3.02" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+
+    <path d="M120,150 L300,196 L420,225 L540,250 L700,281 L880,310" fill="none" stroke="#16130d" stroke-width="6.43" stroke-linecap="round" stroke-linejoin="round" opacity="1"/>
+    <path d="M120,150 L420,175 L480,186 L540,160 L700,168 L880,178" fill="none" stroke="#b97d1c" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round" transform="translate(6.80, 8.32)"/><path d="M120,150 L420,175 L480,186 L540,160 L700,168 L880,178" fill="none" stroke="#16130d" stroke-width="7.56" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <circle cx="120.0" cy="150.0" r="9.1" fill="#f7f3ea" stroke="#16130d" stroke-width="3.00"/>
+    <text x="120.0" y="122.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="18" font-weight="500" fill="#16130d" opacity="1">learning</text>
+
+    <text x="880.0" y="160.0" text-anchor="end" font-family="'Public Sans', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16130d" opacity="1">with a nap</text>
+    <text x="880.0" y="332.0" text-anchor="end" font-family="'Public Sans', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16130d" opacity="0.8">no nap</text>
+  
+</svg>

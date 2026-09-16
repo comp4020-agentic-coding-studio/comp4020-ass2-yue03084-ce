@@ -17,6 +17,8 @@ ago that was an assertion; by now it is the accumulated result of the science,
 the history and the case studies. This lecture turns it into a design problem,
 which is the only form in which it can be acted on.
 
+![A two-ink diagram: three straight lines, drawn in the same misregistered gold-and-ink stroke the rest of the course uses for its main line, join to form a triangle, its corners labelled chronotype, visibility and measurement. A single gold-filled circle sits inside the triangle, marking a policy that satisfies all three at once. Two smaller open circles sit well outside the triangle's edges — one above and to the right of the top corner, labelled the wish, and one below its base, labelled the purchase — each marking a policy that fails to hold at least one corner. A faint, barely visible stepped line echoes the course's own hypnogram shape in the background, tying the closing diagram back to the same two-ink line the rest of the course has drawn.](/images/lectures/week-12.svg)
+
 ## Outline
 
 - **What the course established, in order.** Sleep is a sequence and nap length

@@ -17,6 +17,8 @@ tiredness. This week it does something else entirely: it processes what you
 learned. This is the strongest experimental literature in the course, and the
 most immediately useful to anyone sitting exams in a few weeks.
 
+![A two-ink diagram: two lines run left to right from a single marked point labelled learning. The upper line, in gold and ink, dips only slightly as it crosses a pale gold band marking a nap, then recovers and levels out high for the rest of its length, labelled with a nap. The lower, plain ink line declines steadily and without interruption across the same span, passing through the gold band as if it were not there, and ends far lower than the first, labelled no nap. A plain ruled axis beneath both is labelled time since learning.](/images/lectures/week-11.svg)
+
 ## Outline
 
 - **Consolidation.** New memories are initially fragile and become durable over

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img">
+  <defs>
+    <pattern id="grain" width="13.0" height="13.0" patternUnits="userSpaceOnUse">
+    <circle cx="3.2" cy="3.2" r="1.6" fill="#b97d1c" opacity="0.45"/>
+  </pattern>
+  </defs>
+  <rect width="960" height="540" fill="#f7f3ea"/>
+  <rect width="960" height="540" fill="url(#grain)"/>
+  
+    <path d="M40,270 L120,270 L120,215 L200,215 L200,165 L280,165 L280,215 L360,215 L360,270 L430,270" fill="none" stroke="#16130d" stroke-width="6.05" stroke-linecap="round" stroke-linejoin="round" opacity="0.1"/>
+
+    <path d="M480,110 L220,420 L740,420 Z" fill="none" stroke="#b97d1c" stroke-width="6.05" stroke-linecap="round" stroke-linejoin="round" transform="translate(5.44, 6.65)"/><path d="M480,110 L220,420 L740,420 Z" fill="none" stroke="#16130d" stroke-width="6.05" stroke-linecap="round" stroke-linejoin="round"/>
+
+    <text x="480.0" y="88.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="1">measurement</text>
+    <text x="220.0" y="452.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="1">chronotype</text>
+    <text x="740.0" y="452.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="22" font-weight="600" fill="#16130d" opacity="1">visibility</text>
+
+    <circle cx="480.0" cy="316.7" r="9.8" fill="#b97d1c" stroke="#16130d" stroke-width="4.54"/>
+    <text x="480.0" y="358.7" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="19" font-weight="600" fill="#16130d" opacity="1">the policy</text>
+
+    <circle cx="820.0" cy="150.0" r="6.4" fill="none" stroke="#16130d" stroke-width="3.40"/>
+    <text x="820.0" y="125.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="18" font-weight="500" fill="#16130d" opacity="0.85">the wish</text>
+
+    <circle cx="480.0" cy="480.0" r="6.4" fill="none" stroke="#16130d" stroke-width="3.40"/>
+    <text x="480.0" y="505.0" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="18" font-weight="500" fill="#16130d" opacity="0.85">the purchase</text>
+  
+</svg>
