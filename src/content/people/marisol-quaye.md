@@ -1,8 +1,8 @@
 ---
 title: Marisol Quaye
 description:
-  Convenor. Came to daytime sleep through labour history rather than sleep
-  science, which is why half this course is about clocks.
+  Came to daytime sleep through labour history rather than sleep science, which
+  is why half this course is about clocks.
 affiliation: Slop University School of Invented Disciplines
 role: convenor
 email: marisol.quaye@slop.university

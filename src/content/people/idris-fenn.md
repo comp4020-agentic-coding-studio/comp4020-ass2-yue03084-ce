@@ -1,8 +1,8 @@
 ---
 title: Idris Fenn
 description:
-  Tutor. Runs the measurement-heavy Nap Labs, and is the reason you will be
-  asked for a median rather than a mean.
+  Runs the measurement-heavy Nap Labs, and is the reason you will be asked for
+  a median rather than a mean.
 affiliation: Slop University School of Invented Disciplines
 role: tutor
 email: idris.fenn@slop.university
