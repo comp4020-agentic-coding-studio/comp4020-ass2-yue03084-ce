@@ -13,35 +13,36 @@ stack or gets deleted along with the ones that still matter. See
 
 ## What this course is
 
-The course this repo builds is **the laugh track** --- canned laughter, and the
-studio audience as a manufactured object. The twelve-week arc, the assessment
-split, the typographic language (`[LAUGHTER]` and the rest of the
-closed-caption convention for laughter), and the build sequence are in
-[`plan.md`](plan.md). Read it before building content; it names real files and
-real schema fields.
+**Not yet decided.** The topic is being selected; when it is, it gets recorded
+here in a sentence or two and in [`plan.md`](plan.md), which holds the week arc,
+the assessment split and the build sequence.
 
-- **Dates, weights and week numbers live in `src/course-config.ts` and in each
-  entry's frontmatter --- never written into prose.** Pages read them from
-  there. This is "One fact, one piece of code" below, decided for this repo
-  *before* any content exists, because the alternative is discovering it after
-  twelve weeks of sessions have each hardcoded the same date. *(Expires when a
-  `spec/` test can assert no rendered prose contains a date literal. Nothing
-  does yet.)*
-
-*(This section exists because of a failure in this session, not a hypothetical.
-The topic, the design language and the entire plan were settled in conversation
-and written to `plan.md` --- and `plan.md` is loaded into no session and was
-referenced by nothing. An agent starting fresh would read this file, learn every
-rule in it, and still have no idea what course it was building. A decision
-recorded only in a file nobody is told to open is not a decision the next
-session has.)*
+Record it in *both* places on purpose: this file is loaded into every session
+automatically and `plan.md` is not, so the topic belongs here and the detail
+belongs there with a pointer to it. *(Written after a near miss: a topic, a
+design language and a whole build plan were settled in conversation and written
+only to `plan.md`, which nothing referenced and no session loads. An agent
+starting fresh would have read this file, learnt every rule in it, and still not
+known what course it was building. See "Keeping this file honest" --- same
+failure as a rule outliving its reason, reached from the other side.)*
 
 ## This deliverable's requirements
+
+**Due noon, Monday 21 September 2026.** Worth 20% of the course.
 
 These come straight from the A2 brief and spec, not from a failure in this
 repo yet --- they're here because they're easy to lose track of once you're
 deep in writing content for one week and forget the shape the whole site has
 to hit, and nothing in `pnpm check` catches most of them today.
+
+The spec's lines are **quoted verbatim** below, not paraphrased, and they come
+from the ["The spec" section of the assignment 2
+page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/assessments/assignment-2/).
+*(They were paraphrased at first, from a summary rather than the page, and the
+paraphrase was challenged before it was checked. It turned out to be accurate,
+but that was luck. This file is read as process evidence: a requirement restated
+in the harness author's own words is no longer the requirement, and nobody
+reading it later can tell the difference.)*
 
 - **Niche, not a reskin.** The course has to be narrow enough that no real
   university would run it, but deep enough to fill a semester --- one idea
@@ -52,21 +53,33 @@ to hit, and nothing in `pnpm check` catches most of them today.
   like. This is worth 35% of the mark (response to the brief) and no check can
   catch a course that's technically complete but topically thin --- only a
   read-through can.
-- **Twelve dated teaching weeks**, all under this course's code. *(Spec
-  requirement. Expires as a manual reminder once a `spec/*.test.ts` counts
-  them --- worth writing that test once the content is closer to real than
-  the two placeholder weeks currently here.)*
-- **At least one lecture with a real deck**, linked from its page, not a
-  placeholder. *(Spec requirement, same expiry condition as above.)*
-- **Assessment weightings sum to 100%.** *(Spec requirement and mechanically
-  checkable --- write the test once the assessments are real content instead
-  of trusting the arithmetic by eye each time one changes.)*
-- **Ship (flip the repo public) with a day or so of margin before the crit,
-  not at the deadline.** CI only runs once the repo is public, "still
-  running" counts as not green (see "online" below), and the retro crit reads
-  from `PROCESS.md` against whatever's actually deployed --- there's no
-  benefit to holding the ship until the last hour and real risk in CI not
-  finishing in time.
+- One niche course **"under a SLOPxxxx code that keeps the three digits your
+  repo arrived with"**, **"running across twelve dated teaching weeks"**.
+  *(Expires as a manual reminder once a `spec/*.test.ts` counts them. Only two
+  placeholder weeks exist today. Note the schema caps `week` at 12 but happily
+  accepts three sessions in week 4 and none in week 9 --- so the test has to
+  assert the set is exactly 1–12, not just that nothing exceeds 12.)*
+- **"at least one lecture carries a real deck, linked from its page"**. *(Same
+  expiry condition. `slides` is a frontmatter field with a path regex, so
+  asserting the field exists is easy and insufficient --- it passes while
+  pointing at a deck that was never built. Assert the built deck exists too.)*
+- **"assessment that adds up to 100%"**. *(Mechanically checkable, and nothing
+  checks it today: the content schema's `weightedMarking` refine only validates
+  that the criteria **within** one assessment sum to 100, never the weights
+  across the course. This is a real gap, not a redundant test.)*
+- **"your own checks in `spec/`, protecting the promises your course makes that
+  the build cannot"**. *(So the three tests above are themselves a spec
+  requirement, not an optional nicety --- which is easy to miss, because
+  `spec/README.md` frames them as "yours to write" rather than as required.
+  `spec/` currently holds only the two files the template shipped.)*
+- **"deployed and live at its public GitHub Pages URL by the deadline, working
+  at both marking viewports"** --- and **"`pnpm check` and `pnpm check:evidence`
+  pass"**. So ship (flip the repo public) with a day or so of margin, not at
+  noon on the Monday. CI only runs once the repo is public, "still running"
+  counts as not green (see "online" below), and nothing in `check` looks at the
+  live URL. *(The retro crit is a separate, later event ---
+  `crits/06-a2-retro` --- so "before the crit" is the wrong deadline to aim at;
+  this bullet used to say that and it was several days too generous.)*
 - **Where effort goes when time runs short**: process is 45% of the mark,
   response to the brief 35%, the working artefact 20%. Polishing visuals
   nobody is scoring that heavily is a worse use of remaining time than making
@@ -126,7 +139,13 @@ to hit, and nothing in `pnpm check` catches most of them today.
   contradict itself in front of a reader. **This one matters more here than it
   ever has:** a course site states the same dates, weights and week numbers
   across twenty-odd pages, and every one of those is a fact with two possible
-  homes.
+  homes. **So, settled for this repo before any content exists: dates, weights
+  and week numbers live in `src/course-config.ts` and in each entry's
+  frontmatter, and prose never hardcodes them --- pages read them from there.**
+  Deciding this up front costs nothing; discovering it after twelve weeks of
+  sessions have each typed the same date is twelve files of rework. *(Nothing
+  checks this. It expires as a written rule if a `spec/` test can ever assert
+  that no rendered prose contains a date literal.)*
 - **Default to incremental.** Unless the task says otherwise: don't restructure
   the page, don't rewrite copy that's already there, don't break an interaction
   that already works. Attach the new thing to what exists. For each new feature,
@@ -139,12 +158,16 @@ to hit, and nothing in `pnpm check` catches most of them today.
   (`no-descending-specificity`); a blank line before a declaration that follows
   another declaration is an error unless a comment sits between them
   (`declaration-empty-line-before`); a comment needs a blank line before it
-  (`comment-empty-line-before`). None of these show up until `pnpm check`
-  reaches lint, which is after the build, so getting them right while writing
-  costs nothing and getting them wrong costs a whole round. *(Expires if
-  stylelint leaves `pnpm check`. It was dropped at crit 4 and this rule sat dead
-  in the file for two weeks --- deliberately reinstalled for A2, so the rule is
-  live again.)*
+  (`comment-empty-line-before`). Lint runs **before** the build (`check` is
+  `typecheck && lint && test`, and `test` is `build && vitest`), so a misplaced
+  CSS rule fails fast --- but because the steps chain with `&&`, it also stops
+  the run before the build and the spec, so one comment in the wrong place
+  hides every other result you were trying to get. Getting them right while
+  writing costs nothing. *(Expires if stylelint leaves `pnpm check`. It was
+  dropped at crit 4 and this rule sat dead in the file for two weeks ---
+  deliberately reinstalled for A2, so the rule is live again. The ordering
+  claim here was wrong until checked against `package.json`: it said lint ran
+  after the build, which inverted both the fact and the cost.)*
 - Two CSS facts that fail *silently*, which is why they are written down rather
   than remembered. An `opacity` below 1 forces `transform-style: flat` on that
   element's subtree, so a fade put on a 3-D container flattens the thing it was
@@ -171,7 +194,9 @@ to hit, and nothing in `pnpm check` catches most of them today.
 - **This file is process evidence.** The harness built to direct the agent ---
   this `CLAUDE.md` --- is itself read as part of how the work was done. Keep it
   honest and current.
-- **Don't draft `PROCESS.md` for the student, even to get a check green.**
+- **Don't draft `PROCESS.md` for the student, even to get a check green.** The
+  spec says it **"runs to 400–600 words"** and is **"written by you for a
+  reader"** --- the spec's own words settle whose account it is.
   `PROCESS.md` is graded as their own first-person account of what they decided
   and why; if the agent writes the substance, it stops being evidence and
   becomes the exact "false account" risk the course's integrity policy names.
@@ -194,7 +219,15 @@ to hit, and nothing in `pnpm check` catches most of them today.
   repos carry no `reflections/` entry --- it checks for none.
 - `pnpm test:template` --- the template's own tests, over `scripts/`. Don't edit
   those; they guard the Pages base path and the course config.
-- CI runs the same, plus two secret scans and the deploy.
+- CI runs the same, plus two secret scans (both trufflehog --- one for live
+  secrets, one matching the course key's shape via `.github/trufflehog.yml`),
+  the deploy, and a job that verifies the deployed site is online.
+- `.githooks/pre-commit` blocks a commit if anything staged matches
+  `sk-[A-Za-z0-9_-]{20,}` **and** contains an uppercase character --- the second
+  stage is there so lowercase kebab-case slugs and CSS class names don't trip
+  it. Worth knowing before you spend time debugging a refused commit: it is the
+  hook, not git, and the fix is to move the key out of the file rather than to
+  retry.
 - `spec/*.test.ts` runs with `pnpm check`. `spec/invariants.test.ts` holds what
   is true of any good site; `spec/data-integrity.test.ts` ships with the
   template; the week's own contract goes in a file alongside them.
@@ -202,9 +235,14 @@ to hit, and nothing in `pnpm check` catches most of them today.
   shipping, open the deployed Pages URL yourself and load a real page: an asset
   that 404s there is broken even though it loaded locally. Nothing in `check`
   looks at the live URL.
-- `pnpm check` chains its steps with `&&`, so the first red one stops the rest.
-  A broken build means lint and the spec never ran --- "lint passed" is then
-  something you have not actually learnt yet. While the repo is private CI is
+- `pnpm check` chains its steps with `&&`, so the first red one stops the rest,
+  and the order is types, then lint, then build, then spec. A type error or a
+  lint error therefore means **the build and the spec never ran** --- so "the
+  spec passes" is something you have not actually learnt yet, and a green run
+  after fixing the lint error is the first one that tells you anything about
+  the pages. *(This bullet used to say the opposite --- that a broken build
+  meant lint never ran --- which had the order backwards; corrected against
+  `package.json`.)* While the repo is private CI is
   skipped entirely, so this local run is the only loop there is; once it is
   public, CI needs time to finish, and still-running counts as not green.
 - Accessibility is already measured. `astro-theme-university` walks every built
@@ -224,5 +262,24 @@ live ones along with the dead. That has already happened once in this course:
 the rule against the agent drafting the student's own account was dropped
 between A1 and crit 4 with nothing to say why it existed.
 
-So: when you add a rule, write the failure that caused it. When you delete one,
-say what stopped being true.
+Two more ways this file can go wrong, both found by auditing it rather than by
+being bitten:
+
+- **A rule can carry a *wrong* reason, which is worse than none.** Two bullets
+  here claimed lint ran after the build. It runs before it. The advice attached
+  to them survived the error, but the cost each one quoted was inverted, and a
+  reason that is wrong can't be reviewed later --- it just gets believed. The
+  fix is cheap and should be routine: any claim about what a tool does gets
+  checked against `package.json`, the workflow file, or the script itself
+  before it is written down. **Three of the factual claims in this file were
+  wrong or incomplete the first time they were written, and all three were
+  caught by reading the source rather than by a check going red.**
+- **A decision recorded only where nothing points is not recorded.** A topic, a
+  design language and a whole build plan were settled in conversation and
+  written only to `plan.md` --- which no session loads and nothing referenced.
+  This file is the only document guaranteed to be read. Anything a future
+  session must not rediscover belongs here, at least as a pointer.
+
+So: when you add a rule, write the failure that caused it, and check any factual
+claim in it against the repo. When you delete one, say what stopped being true.
+When you settle something outside this file, leave a pointer inside it.
