@@ -52,17 +52,12 @@ requirement.
   catch a course that's technically complete but topically thin --- only a
   read-through can.
 - One niche course **"under a SLOPxxxx code that keeps the three digits your
-  repo arrived with"**, **"running across twelve dated teaching weeks"**.
-  *(Expires once a `spec/` test counts them. The schema caps `week` at 12 but
-  accepts three sessions in week 4 and none in week 9, so assert the set is
-  exactly 1–12.)*
-- **"at least one lecture carries a real deck, linked from its page"**. *(Same
-  expiry. `slides` is a frontmatter field with a path regex, so asserting the
-  field exists passes while pointing at a deck never built --- assert the built
-  deck too.)*
-- **"assessment that adds up to 100%"**. *(Nothing checks this today: the
-  schema's `weightedMarking` refine only validates criteria **within** one
-  assessment, never the weights across the course. A real gap.)*
+  repo arrived with"**, **"running across twelve dated teaching weeks"**, with
+  **"at least one lecture carries a real deck, linked from its page"** and
+  **"assessment that adds up to 100%"**. All four are asserted in
+  `spec/course-promises.test.ts` now --- weeks 1–12 exactly, every `slides`
+  link resolving to a built, non-empty deck, and weights summing to 100 ---
+  so a read-through is no longer the only thing catching a gap here.
 - **"your own checks in `spec/`, protecting the promises your course makes that
   the build cannot"**. *(So the tests above are required, not optional --- easy
   to miss, because `spec/README.md` frames them as "yours to write".)*
@@ -165,6 +160,13 @@ requirement.
   of the way to nonsense: emit the sign explicitly. A gradient that fails to
   parse doesn't warn, it just doesn't paint, and an element that never appears
   looks exactly like an element you forgot to write.
+- **`astro-theme-university`'s a11y walk can't see OKLCH.** Nap Mode re-lights
+  every surface and ink token through `oklch(from var(--at-primary) L c h)`,
+  and axe reports that as "incomplete" rather than pass or fail --- so a real
+  contrast regression in `nap-mode.css` would build green. The floors there
+  are verified by hand (OKLCH → sRGB → WCAG luminance) and recorded in that
+  file's header comment; re-measure by hand if the palette moves again, don't
+  trust "no accessibility violations" to have looked at it.
 - When a check fails, read its output before you change anything. Each check
   names what it measures, and the failure message is the instruction: it tells
   you the file, the line, or the contract. Treat a red check as authoritative
@@ -231,7 +233,9 @@ requirement.
   counts as not green.
 - Accessibility is already measured. `astro-theme-university` walks every built
   page during `pnpm build` and logs how many it checked and whether any
-  violated. Don't wire a second a11y sensor --- read that one.
+  violated. Don't wire a second a11y sensor --- read that one. *(Exception:
+  OKLCH-based color, which it can't parse --- see the Nap Mode bullet
+  above.)*
 - **Performance is measured by nothing here.** If the spec wants evidence you
   tested it, that is your work. And read a green number honestly: it is one run
   on a CI machine, not proof the site is fast for real users.
