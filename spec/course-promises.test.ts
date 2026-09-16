@@ -1,0 +1,139 @@
+import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { describe, expect, it } from "vitest";
+
+/**
+ * The promises this course makes that the build cannot check for itself.
+ *
+ * The schemas are strict about each entry in isolation — `week` is capped at 12
+ * and `slides` has to match a path shape — but every promise below is about the
+ * set of entries, or about the rendered page, and nothing in `pnpm build`
+ * looks at either. Each test says what would slip past without it.
+ */
+
+interface ApiNode {
+  id: string;
+  type: string;
+  meta?: Record<string, unknown>;
+}
+
+interface CourseApi {
+  course: { code: string; startDate: string; endDate: string };
+  nodes: ApiNode[];
+}
+
+const dist = resolve("dist");
+const api = JSON.parse(readFileSync(join(dist, "api/index.json"), "utf8")) as CourseApi;
+const nodesOfType = (type: string) => api.nodes.filter((node) => node.type === type);
+
+/** Every built HTML page, as paths relative to `dist/`. */
+const htmlPages = (() => {
+  const found: string[] = [];
+  const walk = (dir: string, prefix: string) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${entry.name}` : entry.name;
+      if (entry.isDirectory()) walk(join(dir, entry.name), rel);
+      else if (entry.name.endsWith(".html")) found.push(rel);
+    }
+  };
+  walk(dist, "");
+  return found.sort();
+})();
+
+const read = (page: string) => readFileSync(join(dist, page), "utf8");
+
+describe("twelve dated teaching weeks", () => {
+  // The schema caps `week` at 12 and refuses 13, which is a different promise:
+  // it accepts three sessions in week 4 and none in week 9, and the course
+  // would still build. Only the *set* being exactly 1–12 says the semester is
+  // whole, and a missing week is invisible on a listing page sorted by date.
+  const weeksOf = (type: string) =>
+    new Set(nodesOfType(type).map((node) => Number(node.meta?.week)));
+  const expected = new Set(Array.from({ length: 12 }, (_, index) => index + 1));
+  const missing = (weeks: Set<number>) => [...expected].filter((week) => !weeks.has(week));
+
+  it("runs a Nap Lab in each of weeks 1 to 12", () => {
+    const weeks = weeksOf("sessions");
+    expect(missing(weeks), "weeks with no session").toEqual([]);
+    expect([...weeks].filter((week) => !expected.has(week)), "weeks out of range").toEqual([]);
+  });
+
+  it("runs a lecture in each of weeks 1 to 12", () => {
+    const weeks = weeksOf("lectures");
+    expect(missing(weeks), "weeks with no lecture").toEqual([]);
+    expect([...weeks].filter((week) => !expected.has(week)), "weeks out of range").toEqual([]);
+  });
+
+  it("dates the weeks in ascending order, one week apart or more", () => {
+    // Catches a typo'd year or a fortnight's drift that `data-integrity`
+    // misses, because a wrong date inside the teaching period still passes it.
+    const dated = nodesOfType("sessions")
+      .map((node) => ({ week: Number(node.meta?.week), date: String(node.meta?.date).slice(0, 10) }))
+      .sort((a, b) => a.week - b.week);
+    for (let index = 1; index < dated.length; index += 1) {
+      const previous = dated[index - 1]!;
+      const current = dated[index]!;
+      expect(current.date > previous.date, `week ${current.week} is not after week ${previous.week}`).toBe(true);
+    }
+  });
+});
+
+describe("a real deck, linked from its lecture", () => {
+  // `slides` is a string with a path regex, so a lecture can advertise a deck
+  // that was never written and the build stays green — the regex checks the
+  // shape of the path, never that anything is at the end of it.
+  const withSlides = nodesOfType("lectures").filter((node) => typeof node.meta?.slides === "string");
+
+  it("has at least one lecture carrying a deck", () => {
+    expect(withSlides.length).toBeGreaterThan(0);
+  });
+
+  it("built every deck that a lecture links to", () => {
+    for (const lecture of withSlides) {
+      const slides = String(lecture.meta?.slides);
+      const built = join(dist, slides.replace(/^\//, ""), "index.html");
+      expect(existsSync(built), `${lecture.id} links ${slides}, which was not built`).toBe(true);
+      // A deck that built but is empty is the same broken promise.
+      expect(readFileSync(built, "utf8").length, `${slides} built empty`).toBeGreaterThan(500);
+    }
+  });
+});
+
+describe("Nap Mode reaches the whole site", () => {
+  // Nap Mode is the course's argument made operable, so a page without it is a
+  // page where the argument stops. It is injected by two layouts rather than by
+  // each page, which is exactly the arrangement that fails silently: a new page
+  // importing the theme's layout directly loses the toggle and nothing goes
+  // red.
+  //
+  // The contract is "every page that renders the site chrome", derived rather
+  // than listed — the deck is a standalone deck with no nav and legitimately
+  // has neither, and hardcoding its path here would let a *second* chrome-less
+  // page through unnoticed.
+  const chromed = htmlPages.filter((page) => read(page).includes("at-nav-inner"));
+
+  it("finds the site chrome on essentially every page", () => {
+    expect(chromed.length).toBeGreaterThan(30);
+    expect(htmlPages.length - chromed.length, "pages without site chrome").toBeLessThanOrEqual(1);
+  });
+
+  it("puts the toggle on every page that has the chrome", () => {
+    const without = chromed.filter((page) => !read(page).includes("data-nap-toggle"));
+    expect(without, "chromed pages with no Nap Mode toggle").toEqual([]);
+  });
+
+  it("applies the nap before first paint on every page that has the chrome", () => {
+    // Without the head script the nap is applied by the module script after
+    // paint, so a napping reader gets one frame of a fully lit page on every
+    // navigation — the one thing a dimmed site must not do.
+    const without = chromed.filter((page) => !read(page).includes("nap-until"));
+    expect(without, "chromed pages with no pre-paint nap script").toEqual([]);
+  });
+
+  it("names the nap's storage key after the course code", () => {
+    // The key is derived from `courseMeta.code`; if that derivation is ever
+    // replaced by a literal, two courses on one origin would share a nap.
+    const expected = `${api.course.code.toLowerCase()}:nap-until`;
+    expect(read("index.html")).toContain(expected);
+  });
+});
