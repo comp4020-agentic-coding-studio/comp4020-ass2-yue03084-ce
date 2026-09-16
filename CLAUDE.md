@@ -11,12 +11,83 @@ label: nobody can tell whether it still applies, so it either survives past its
 stack or gets deleted along with the ones that still matter. See
 [Keeping this file honest](#keeping-this-file-honest).
 
+## What this course is
+
+The course this repo builds is **the laugh track** --- canned laughter, and the
+studio audience as a manufactured object. The twelve-week arc, the assessment
+split, the typographic language (`[LAUGHTER]` and the rest of the
+closed-caption convention for laughter), and the build sequence are in
+[`plan.md`](plan.md). Read it before building content; it names real files and
+real schema fields.
+
+- **Dates, weights and week numbers live in `src/course-config.ts` and in each
+  entry's frontmatter --- never written into prose.** Pages read them from
+  there. This is "One fact, one piece of code" below, decided for this repo
+  *before* any content exists, because the alternative is discovering it after
+  twelve weeks of sessions have each hardcoded the same date. *(Expires when a
+  `spec/` test can assert no rendered prose contains a date literal. Nothing
+  does yet.)*
+
+*(This section exists because of a failure in this session, not a hypothetical.
+The topic, the design language and the entire plan were settled in conversation
+and written to `plan.md` --- and `plan.md` is loaded into no session and was
+referenced by nothing. An agent starting fresh would read this file, learn every
+rule in it, and still have no idea what course it was building. A decision
+recorded only in a file nobody is told to open is not a decision the next
+session has.)*
+
+## This deliverable's requirements
+
+These come straight from the A2 brief and spec, not from a failure in this
+repo yet --- they're here because they're easy to lose track of once you're
+deep in writing content for one week and forget the shape the whole site has
+to hit, and nothing in `pnpm check` catches most of them today.
+
+- **Niche, not a reskin.** The course has to be narrow enough that no real
+  university would run it, but deep enough to fill a semester --- one idea
+  explored throughout, not COMP4020 with a find-and-replace. The brief names
+  that failure mode explicitly and points at three real course sites ---
+  *Calling Bullshit*, *How to Make (Almost) Anything*, *CS 007: Personal
+  Finance for Engineers* --- as what "one idea held all the way through" looks
+  like. This is worth 35% of the mark (response to the brief) and no check can
+  catch a course that's technically complete but topically thin --- only a
+  read-through can.
+- **Twelve dated teaching weeks**, all under this course's code. *(Spec
+  requirement. Expires as a manual reminder once a `spec/*.test.ts` counts
+  them --- worth writing that test once the content is closer to real than
+  the two placeholder weeks currently here.)*
+- **At least one lecture with a real deck**, linked from its page, not a
+  placeholder. *(Spec requirement, same expiry condition as above.)*
+- **Assessment weightings sum to 100%.** *(Spec requirement and mechanically
+  checkable --- write the test once the assessments are real content instead
+  of trusting the arithmetic by eye each time one changes.)*
+- **Ship (flip the repo public) with a day or so of margin before the crit,
+  not at the deadline.** CI only runs once the repo is public, "still
+  running" counts as not green (see "online" below), and the retro crit reads
+  from `PROCESS.md` against whatever's actually deployed --- there's no
+  benefit to holding the ship until the last hour and real risk in CI not
+  finishing in time.
+- **Where effort goes when time runs short**: process is 45% of the mark,
+  response to the brief 35%, the working artefact 20%. Polishing visuals
+  nobody is scoring that heavily is a worse use of remaining time than making
+  sure `PROCESS.md`'s citations are real and the commit trail shows the work.
+
 ## How to work in here
 
 - Keep the dev server running (`pnpm dev`) so you see changes as you make them.
 - Run `pnpm check` before you push.
 - Open the page in a browser and look at it, at **both marking viewports (1920
   and 390)**. The rendered page is the truth; your mental model of it isn't.
+- **Use `agent-browser` to see the page, not just to check it built.** It drives
+  a real browser, takes screenshots, and reads the accessibility tree and
+  console errors --- closing the gap no code-level check reaches, since none of
+  them can tell you what the page *looks like*. It's an external CLI
+  ([`vercel-labs/agent-browser`](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/backpressure/#agent-browser-the-rendered-page-as-ground-truth)),
+  not bundled in this repo, so install it before assuming it's there. *(This tip
+  was in the harness at crit 2 and A1, then silently dropped at crit 4 along
+  with everything else this file's own "Keeping this file honest" section
+  complains about --- restored for A2 after checking the course site still
+  documents it as current.)*
 - **Don't `cd`.** Put the directory in the command instead --- `pnpm -C <repo>`,
   `git -C <repo>` --- and give scripts absolute paths. The shell's working
   directory persists between tool calls, so one `cd` into `/tmp` to poke at a
@@ -90,6 +161,13 @@ stack or gets deleted along with the ones that still matter. See
 
 ## Process and integrity
 
+- **Commit as you go.** Small, frequent commits are the record of how the work
+  came together, and that record is read, not just the final state --- a trail
+  that grew alongside the code is the strongest evidence of process; a single
+  dump the night before is the weakest. *(This rule existed at A1, was dropped
+  at crit 4 alongside the PROCESS.md rule below, and never came back until now.
+  Restored because process is 45% of this deliverable's mark and commit
+  granularity is the one part of it a marker can see directly.)*
 - **This file is process evidence.** The harness built to direct the agent ---
   this `CLAUDE.md` --- is itself read as part of how the work was done. Keep it
   honest and current.
