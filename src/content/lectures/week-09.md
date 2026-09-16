@@ -7,6 +7,7 @@ week: 9
 date: 2027-05-03
 teachers:
   - marisol-quaye
+slides: /decks/week-09/
 related:
   - sessions/09-strongest-claim-least-access
 ---

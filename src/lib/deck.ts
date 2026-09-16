@@ -1,27 +1,31 @@
 import { getPublishedCollection } from "astro-course-university/content";
 
 /**
- * The lecture that carries the built deck.
+ * The sentence the homepage and the lectures index use to say where the slides
+ * are.
  *
- * Which week the deck sits on is stated once, in the `slides` field of that
- * lecture's own frontmatter, and read from here by the two pages that mention
- * it in prose. Typed a second time it becomes a sentence that goes quietly
- * wrong the moment the deck moves — and it would go wrong on the lectures
- * index, which is the page a reader checks *because* they are looking for the
- * slides.
+ * The *sentence* lives here, not just the data behind it, because both pages
+ * print it and a sentence assembled twice is a page that can eventually
+ * contradict itself. It used to name a single week --- true while week 2 was
+ * the only deck, and quietly wrong the moment a second lecture carried one,
+ * because "Week 1 comes with slides" reads as *only* week 1 does.
  *
- * `spec/course-promises.test.ts` already asserts that a lecture claims a deck
- * and that the deck was actually built; this is the same fact reaching the
- * prose, so the sentence and the test cannot disagree.
+ * Derived from the `slides` frontmatter field rather than from a count kept
+ * anywhere, so a deck added or removed moves this sentence with it.
+ * `spec/course-promises.test.ts` separately asserts that every `slides` path
+ * was actually built, so the sentence cannot promise a deck that does not
+ * exist.
  *
- * Sorted by week and first taken, so that a second deck later in the semester
- * makes this name the earliest one rather than an arbitrary one. Returns
- * `undefined` if no lecture carries slides — callers render nothing rather
- * than a sentence with a hole in it.
+ * Returns `undefined` when no lecture carries slides --- callers render
+ * nothing rather than a sentence with a hole in it.
  */
-export async function deckLecture() {
+export async function deckNote() {
   const lectures = await getPublishedCollection("lectures");
-  return lectures
+  const weeks = lectures
     .filter((lecture) => typeof lecture.data.slides === "string")
-    .sort((a, b) => a.data.week - b.data.week)[0];
+    .map((lecture) => lecture.data.week)
+    .sort((a, b) => a - b);
+  if (weeks.length === 0) return undefined;
+  if (weeks.length === lectures.length) return "Every one comes with a deck.";
+  return `Weeks ${weeks.join(", ")} come with a deck.`;
 }

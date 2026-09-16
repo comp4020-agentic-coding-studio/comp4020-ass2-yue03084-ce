@@ -1,0 +1,115 @@
+---
+title: Measuring the nap
+description: Week 10 — what sleep trackers actually measure, and how far the display is from it
+---
+
+import { NAP_MINUTES } from "../course-config";
+
+{/* _class: impact */}
+
+# Measuring the nap
+
+Two signals, and a hypnogram that implies more
+
+---
+
+## Where we have been, in one line
+
+A nine-point scale and a reaction-time task --- while most of you wear a device
+that claims to do better.
+
+This week is about whether it does. Nearly every popular claim about sleep now
+rests on data of this kind.
+
+---
+
+## The reference standard
+
+Polysomnography defines the stages: brain activity, eye movement, muscle tone.
+
+- needs a lab, electrodes and a scorer
+- everything else is an **approximation of it**
+
+The size of that approximation is the lecture.
+
+---
+
+## What each one actually has
+
+| Signal | Polysomnography | Wrist device |
+|---|---|---|
+| brain activity | yes | no |
+| eye movement | yes | no |
+| muscle tone | yes | no |
+| movement | — | yes |
+| heart rate, optical | — | usually |
+
+That is the whole input on the right.
+
+---
+
+## From movement to a hypnogram
+
+Actigraphy separates **sleep from wake** reasonably well --- sleeping people
+move less.
+
+Stages are a different job: inferred from those two signals by a proprietary
+model.
+
+The confidence in the display comes from the inference, not from anything
+observed.
+
+---
+
+## The known failure mode
+
+Lying still while awake reads as sleep.
+
+- worst for the people most worried about their sleep
+- their devices reassure them **precisely when they should not**
+
+---
+
+{/* _class: impact */}
+
+# Below the resolution
+
+A {NAP_MINUTES}-minute nap is nearly invisible to the instrument
+
+---
+
+## Why that lands here
+
+Short sleep is the hard case: a nap of that length sits near or below what these
+systems can resolve.
+
+The course's central object is the thing the popular instrument sees least well.
+
+---
+
+## Validation, and its absence
+
+- some devices publish agreement studies against polysomnography; most do not
+- agreement on **stages** is consistently worse than on total sleep time
+- algorithms change in firmware updates
+
+So last year's validation may not describe this year's device.
+
+---
+
+## Why the number looks so certain
+
+Clean coloured bands are a design decision.
+
+The estimate underneath carries uncertainty the display does not show.
+
+Showing it would make the product worse and the data better.
+
+---
+
+{/* _class: centered */}
+
+## Tell me where this is unfair
+
+> Your sleep tracker is a reasonably good movement sensor wrapped in a
+> presentation layer that implies a measurement it did not take.

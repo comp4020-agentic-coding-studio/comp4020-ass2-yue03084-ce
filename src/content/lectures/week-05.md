@@ -7,6 +7,7 @@ week: 5
 date: 2027-03-22
 teachers:
   - marisol-quaye
+slides: /decks/week-05/
 related:
   - sessions/05-reading-the-factory-clock
 ---

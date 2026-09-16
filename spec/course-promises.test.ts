@@ -133,15 +133,24 @@ describe("Nap Mode reaches the whole site", () => {
   // importing the theme's layout directly loses the toggle and nothing goes
   // red.
   //
-  // The contract is "every page that renders the site chrome", derived rather
-  // than listed — the deck is a standalone deck with no nav and legitimately
-  // has neither, and hardcoding its path here would let a *second* chrome-less
-  // page through unnoticed.
+  // The contract is "every page that renders the site chrome". A deck is a
+  // standalone Reveal.js page with no nav and legitimately has neither the
+  // chrome nor the toggle.
+  //
+  // This used to allow *one* chrome-less page, which was a stand-in for "the
+  // single deck" while week 2 was the only lecture carrying one. Every lecture
+  // now carries its own deck, so the count stopped being a contract and became
+  // a tripwire on the number of decks. Naming the deck route instead is both
+  // honest about which pages are exempt and stricter than the count was: it
+  // asserts that *no* page outside `/decks/` is bare, where the old form would
+  // have let one through.
+  const isDeck = (page: string) => page.startsWith("decks/");
   const chromed = htmlPages.filter((page) => read(page).includes("at-nav-inner"));
 
-  it("finds the site chrome on essentially every page", () => {
+  it("finds the site chrome on every page that is not a deck", () => {
     expect(chromed.length).toBeGreaterThan(30);
-    expect(htmlPages.length - chromed.length, "pages without site chrome").toBeLessThanOrEqual(1);
+    const bare = htmlPages.filter((page) => !isDeck(page) && !chromed.includes(page));
+    expect(bare, "non-deck pages without site chrome").toEqual([]);
   });
 
   it("puts the toggle on every page that has the chrome", () => {

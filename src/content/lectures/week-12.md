@@ -7,6 +7,7 @@ week: 12
 date: 2027-05-24
 teachers:
   - marisol-quaye
+slides: /decks/week-12/
 related:
   - sessions/12-defend-the-policy
 ---
