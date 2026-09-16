@@ -78,6 +78,33 @@ describe("twelve dated teaching weeks", () => {
   });
 });
 
+describe("assessment adds up to 100%", () => {
+  // The schema's `weightedMarking` refine validates the criteria *within* one
+  // assessment and never the weights *across* the course, so three assessments
+  // at 30/30/30 build green and shortchange the students by ten points. This
+  // is the gap `CLAUDE.md` calls a real one.
+  const assessments = nodesOfType("assessments");
+
+  it("has assessments to weigh", () => {
+    expect(assessments.length).toBeGreaterThan(0);
+  });
+
+  it("sums the course weights to exactly 100", () => {
+    const total = assessments.reduce((sum, node) => sum + Number(node.meta?.weight), 0);
+    const breakdown = assessments
+      .map((node) => `${node.id} ${String(node.meta?.weight)}%`)
+      .join(", ");
+    expect(total, `weights sum to ${total}, not 100 — ${breakdown}`).toBe(100);
+  });
+
+  it("gives every assessment a due date and a week", () => {
+    for (const node of assessments) {
+      expect(node.meta?.due, `${node.id} has no due date`).toBeTruthy();
+      expect(Number(node.meta?.week), `${node.id} has no week`).toBeGreaterThan(0);
+    }
+  });
+});
+
 describe("a real deck, linked from its lecture", () => {
   // `slides` is a string with a path regex, so a lecture can advertise a deck
   // that was never written and the build stays green — the regex checks the
