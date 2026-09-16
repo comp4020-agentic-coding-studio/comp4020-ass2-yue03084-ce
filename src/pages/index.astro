@@ -1,7 +1,7 @@
 ---
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
-import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
 import heroImage from "../assets/images/hero-home.avif";
 import { courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
@@ -10,7 +10,7 @@ import { sessionLabels, siteConfig } from "../site-config";
 // remove this comment.
 ---
 
-<ContentLayout
+<SiteLayout
   title={`${courseMeta.code}: ${courseMeta.title}`}
   description={courseMeta.description}
   heroImage={heroImage}
@@ -46,7 +46,7 @@ import { sessionLabels, siteConfig } from "../site-config";
       <p>Who teaches the course and how to reach them.</p>
     </Card>
   </CardGrid>
-</ContentLayout>
+</SiteLayout>
 
 <style>
   .course-tags {

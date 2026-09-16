@@ -1,0 +1,180 @@
+/* Nap Mode — the site enacting its own subject.
+ *
+ * Unlayered on purpose. The theme's rules all sit in `@layer at.tokens`,
+ * `at.base` and `at.components`, and unlayered CSS outranks every layer, so
+ * everything here wins on cascade order alone — no `!important`, and no
+ * selector inflated past what it needs to describe.
+ *
+ * Colours are re-derived through the same `oklch(from var(--at-primary) L C h)`
+ * pattern the theme's own tokens use, so SlopU's brand hue is still the hue
+ * doing the tinting: the palette dims, the brand does not change. Light and
+ * dark stay separate through `light-dark()`, which keys off `color-scheme`, so
+ * a reader's theme choice survives the nap.
+ *
+ * The lightnesses below are measured, not judged by eye — at SlopU's own brand
+ * hue (73.0, from #b97d1c), because the numbers move with the hue the theme
+ * threads through every token. Worst case against the three nap surfaces:
+ * body text 11.8:1 light / 13.0:1 dark, secondary 7.7 / 7.5, muted 5.1 / 4.7,
+ * all clear of the 4.5:1 AA floor; the hairlines (divider, border) clear the
+ * 3:1 one at 3.0 / 3.2 and 3.9 / 3.9. Dimming that drops text under AA isn't a
+ * nap, it's a fault.
+ */
+
+[data-nap="on"] {
+  --at-bg: light-dark(
+    oklch(from var(--at-primary) 90% 0.012 h),
+    oklch(from var(--at-primary) 8% 0.008 h)
+  );
+  --at-bg-alt: light-dark(
+    oklch(from var(--at-primary) 86% 0.016 h),
+    oklch(from var(--at-primary) 11% 0.01 h)
+  );
+  --at-bg-elevated: light-dark(
+    oklch(from var(--at-primary) 93% 0.01 h),
+    oklch(from var(--at-primary) 14% 0.012 h)
+  );
+  --at-text: light-dark(
+    oklch(from var(--at-primary) 20% 0.01 h),
+    oklch(from var(--at-primary) 86% 0.005 h)
+  );
+
+  /* Opaque, where the theme's are alpha over the page. An alpha ink keeps its
+     contrast only as long as what's behind it keeps its lightness, and this
+     file moves exactly that — so the muted inks are pinned to lightnesses that
+     were measured against the dimmed surfaces rather than inherited from a
+     brighter page. */
+  --at-text-secondary: light-dark(
+    oklch(from var(--at-primary) 34% 0.01 h),
+    oklch(from var(--at-primary) 70% 0.005 h)
+  );
+  --at-text-muted: light-dark(
+    oklch(from var(--at-primary) 44% 0.01 h),
+    oklch(from var(--at-primary) 58% 0.005 h)
+  );
+  --at-divider: light-dark(
+    oklch(from var(--at-primary) 56% 0.01 h),
+    oklch(from var(--at-primary) 49% 0.008 h)
+  );
+  --at-border: light-dark(
+    oklch(from var(--at-primary) 50% 0.02 h),
+    oklch(from var(--at-primary) 54% 0.016 h)
+  );
+  --at-code-bg: light-dark(
+    oklch(from var(--at-primary) 84% 0.014 h),
+    oklch(from var(--at-primary) 16% 0.012 h)
+  );
+
+  /* Brand gold, re-lit for a dim page — `c h` keep the chroma and the hue
+     exactly, so this is the same colour at a lightness the surface under it
+     can carry. Left alone, gold at its own 63.6% lightness reads 2.3:1 against
+     the light nap background: under the 3:1 floor even for headings, which is
+     the one thing dimming is not allowed to cost. At 44% it is 5.2:1, clear
+     for body text too, and `--at-on-accent` re-derives from it on its own.
+     Dark mode needs none of this — gold on the dim dark surface is 5.7:1 — so
+     it keeps the brand value untouched.
+
+     `--at-primary` itself is deliberately NOT touched: table headers ink
+     themselves with `--at-on-primary`, which is picked from its lightness, and
+     moving it would flip that pairing as a side effect. */
+  --at-heading: light-dark(oklch(from var(--at-primary) 44% c h), var(--at-primary));
+  --at-accent: light-dark(oklch(from var(--at-primary) 44% c h), var(--at-primary));
+  --at-link: light-dark(oklch(from var(--at-primary) 44% c h), var(--at-primary));
+
+  /* Hover goes darker, not lighter. The theme lifts it on a near-white page;
+     on a dimmed one the contrast is in the other direction. */
+  --at-accent-hover: light-dark(
+    oklch(from var(--at-primary) 38% c h),
+    var(--at-primary-hover)
+  );
+  --at-link-hover: light-dark(
+    oklch(from var(--at-primary) 38% c h),
+    var(--at-primary-hover)
+  );
+
+  /* How much body text grows. One number, named, because it is the kind of
+     value that otherwise ends up typed twice with two different answers. */
+  --nap-text-scale: 1.2;
+}
+
+/* Body text only. Headings are sized from `--at-font-size-h*` in rem and stay
+   put, which is the point: the reading text gets bigger, the page doesn't zoom.
+   `em` here resolves against the inherited 1.125rem base. */
+[data-nap="on"] .at-main {
+  font-size: calc(1em * var(--nap-text-scale));
+}
+
+/* The navigation collapses: at every width the nav falls back to the folded
+   state the theme already ships for phones, rather than to a state invented
+   here. The declarations below are the theme's own mobile block, re-asserted
+   above its `width >= 640px` overrides — so expanding the menu while napping
+   behaves exactly as it does on a phone, including the theme's own
+   `grid-template-rows` transition and its `inert` handling. */
+[data-nap="on"] .at-nav-toggle {
+  display: inline-flex;
+  margin-inline-start: auto;
+}
+
+[data-nap="on"] .at-nav-links-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 100%;
+  order: 3;
+}
+
+[data-nap="on"] .at-nav-links {
+  flex-direction: column;
+  gap: var(--at-spacing-xs);
+  width: 100%;
+  margin-inline-start: 0;
+  padding: 0;
+  order: 0;
+}
+
+[data-nap="on"] .at-nav:has(.at-nav-toggle[aria-expanded="true"]) .at-nav-links-wrapper {
+  grid-template-rows: 1fr;
+}
+
+/* The control itself. Fixed bottom-right rather than in the nav: the nav's
+   right edge is already the search button's, and — the reason that matters
+   more — this is the switch that ends a nap early, so it has to stay in reach
+   at any scroll depth and must not be inside the navigation it collapses. */
+.nap-mode {
+  position: fixed;
+  right: var(--at-spacing-lg);
+  bottom: calc(var(--at-spacing-lg) + env(safe-area-inset-bottom, 0px));
+
+  /* Under the nav (100) and the skip link (101): if they ever meet, the
+     thing anchored to the top of the page wins. */
+  z-index: 99;
+}
+
+.nap-mode__button {
+  display: inline-flex;
+  gap: var(--at-spacing-sm);
+  align-items: baseline;
+  padding: var(--at-spacing-sm) var(--at-spacing-md);
+  border: 1px solid var(--at-border);
+  border-radius: 100vmax;
+  background: var(--at-bg-elevated);
+  box-shadow: var(--at-shadow-md);
+  color: var(--at-text);
+  font: inherit;
+  font-size: var(--at-font-size-sm);
+  cursor: pointer;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.nap-mode__button:hover {
+  border-color: var(--at-accent);
+}
+
+.nap-mode__time {
+  color: var(--at-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.nap-mode__time:empty {
+  display: none;
+}

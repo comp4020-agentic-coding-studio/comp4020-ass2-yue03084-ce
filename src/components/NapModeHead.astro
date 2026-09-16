@@ -1,0 +1,25 @@
+---
+import { NAP_STORAGE_KEY } from "../nap-mode";
+
+// Applied in `<head>`, before first paint, because the alternative is a lit
+// white page for one frame every time a napping reader follows a link — the
+// exact flash the feature exists to prevent.
+//
+// `is:inline` is what keeps it in the document instead of being bundled and
+// deferred, and `data-astro-rerun` is what makes it run again after a view
+// transition (the theme's own colour-scheme script is set up the same way).
+// An inline script can't import, so the storage key is interpolated rather
+// than imported: still one source, still `src/nap-mode.ts`.
+const script = `
+try {
+  var k = ${JSON.stringify(NAP_STORAGE_KEY)};
+  var until = Number(localStorage.getItem(k));
+  if (until > Date.now()) document.documentElement.dataset.nap = "on";
+  else localStorage.removeItem(k);
+} catch (e) {
+  /* Storage blocked. The nap still works, it just won't outlive the page. */
+}
+`;
+---
+
+<script is:inline data-astro-rerun set:html={script} />

@@ -1,0 +1,26 @@
+---
+/**
+ * The theme's `ContentLayout` plus Nap Mode.
+ *
+ * Every page needs the toggle, and the theme's `Nav` has no slot to put it in,
+ * so it goes in the two layouts every page already passes through: this one
+ * for the `.astro` routes, `PageLayout` for the Markdown ones. Props are
+ * forwarded untouched — the pages still pass their own `siteConfig`, so
+ * adopting this is a one-line import swap and nothing about a page's existing
+ * behaviour moves.
+ */
+import ContentLayout, {
+  type ContentLayoutProps,
+} from "astro-theme-university/layouts/ContentLayout.astro";
+import NapMode from "../components/NapMode.astro";
+import NapModeHead from "../components/NapModeHead.astro";
+
+type Props = ContentLayoutProps;
+---
+
+<ContentLayout {...Astro.props}>
+  <NapModeHead slot="head" />
+  <slot name="head" slot="head" />
+  <NapMode />
+  <slot />
+</ContentLayout>

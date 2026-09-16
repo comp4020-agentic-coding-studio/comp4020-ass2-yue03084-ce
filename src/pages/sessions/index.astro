@@ -1,10 +1,10 @@
 ---
-import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
 import SessionsGrid from "../../components/SessionsGrid.astro";
 import { sessionLabels, siteConfig } from "../../site-config";
 ---
 
-<ContentLayout
+<SiteLayout
   title={sessionLabels.plural}
   description={`The twelve-week teaching schedule: what happens in each ${sessionLabels.singular.toLowerCase()}, what to prepare, and what leaves the room.`}
   {...siteConfig}
@@ -15,4 +15,4 @@ import { sessionLabels, siteConfig } from "../../site-config";
     the language your course deserves everywhere readers see it.
   </p>
   <SessionsGrid />
-</ContentLayout>
+</SiteLayout>

@@ -1,8 +1,13 @@
 ---
 import MdxPageLayout from "astro-theme-university/layouts/MdxPageLayout.astro";
+import NapMode from "../components/NapMode.astro";
+import NapModeHead from "../components/NapModeHead.astro";
 import { siteConfig } from "../site-config";
 ---
 
 <MdxPageLayout siteConfig={siteConfig} {...Astro.props}>
+  <NapModeHead slot="head" />
+  <slot name="head" slot="head" />
+  <NapMode />
   <slot />
 </MdxPageLayout>

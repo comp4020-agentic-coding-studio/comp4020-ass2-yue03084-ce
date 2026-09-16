@@ -1,0 +1,123 @@
+---
+import "../styles/nap-mode.css";
+---
+
+{/*
+  When it updates: on click, on every page load (including view transitions),
+  and once a second while a nap is running down.
+  What must not change: the SlopU brand colours, the page's structure, and the
+  reader's light/dark choice. Nap Mode moves tokens and one font size; it does
+  not restyle a single component.
+*/}
+<div class="nap-mode">
+  <button
+    class="nap-mode__button"
+    type="button"
+    aria-pressed="false"
+    data-nap-toggle
+  >
+    <span data-nap-label>Nap mode</span>
+    <span class="nap-mode__time" aria-hidden="true" data-nap-time></span>
+  </button>
+</div>
+
+<script>
+  import { NAP_MS, NAP_STORAGE_KEY } from "../nap-mode";
+
+  const root = document.documentElement;
+
+  // Authoritative even when `localStorage` throws (private windows, blocked
+  // site data). Storage is a mirror of this, best-effort — so a nap always
+  // works, and merely stops outliving the page when it can't be written.
+  let memory = 0;
+  let ticking: ReturnType<typeof setInterval> | null = null;
+
+  /** The nap's expiry, or 0 when there is no nap running. */
+  function readUntil(): number {
+    let until = memory;
+    try {
+      const stored = Number(localStorage.getItem(NAP_STORAGE_KEY));
+      if (Number.isFinite(stored)) until = Math.max(until, stored);
+    } catch {
+      /* Fall back to memory. */
+    }
+    return until > Date.now() ? until : 0;
+  }
+
+  function writeUntil(until: number): void {
+    memory = until;
+    try {
+      if (until) localStorage.setItem(NAP_STORAGE_KEY, String(until));
+      else localStorage.removeItem(NAP_STORAGE_KEY);
+    } catch {
+      /* Memory already holds it. */
+    }
+  }
+
+  // The theme decides nav link reachability from whether its toggle is visible
+  // and expanded; Nap Mode changes the first of those, so it owes the same
+  // sync afterwards. Same condition as the theme's own `syncNavInert`, because
+  // two answers to "are these links reachable?" is one answer too many.
+  function syncNav(collapse: boolean): void {
+    for (const wrapper of document.querySelectorAll<HTMLElement>(".at-nav-links-wrapper")) {
+      const toggle = wrapper.closest(".at-nav")?.querySelector(".at-nav-toggle");
+      if (!toggle) continue;
+      if (collapse) toggle.setAttribute("aria-expanded", "false");
+      wrapper.inert =
+        getComputedStyle(toggle).display !== "none" &&
+        toggle.getAttribute("aria-expanded") !== "true";
+    }
+  }
+
+  /** Everything the nap state shows, from the one value that decides it. */
+  function render(until: number): void {
+    const napping = until > 0;
+    if (napping) root.dataset.nap = "on";
+    else delete root.dataset.nap;
+
+    const minutesLeft = napping ? Math.ceil((until - Date.now()) / 60_000) : 0;
+    for (const button of document.querySelectorAll<HTMLElement>("[data-nap-toggle]")) {
+      button.setAttribute("aria-pressed", String(napping));
+      const label = button.querySelector("[data-nap-label]");
+      const time = button.querySelector("[data-nap-time]");
+      if (label) label.textContent = napping ? "Wake up" : "Nap mode";
+      // Visual only — `aria-hidden` on the element, because a countdown
+      // announced every second is not an accessibility feature.
+      if (time) time.textContent = napping ? `${minutesLeft} min` : "";
+    }
+  }
+
+  function tick(): void {
+    const until = readUntil();
+    if (!until) writeUntil(0);
+    render(until);
+    if (until && !ticking) ticking = setInterval(tick, 1000);
+    if (!until && ticking) {
+      clearInterval(ticking);
+      ticking = null;
+    }
+  }
+
+  function onClick(): void {
+    const until = readUntil() ? 0 : Date.now() + NAP_MS;
+    writeUntil(until);
+    syncNav(until > 0);
+    tick();
+  }
+
+  // Bind once per button, then re-bind after each view transition — the
+  // theme's `Nav` script uses the same guarded-setup shape, so both survive
+  // navigation the same way.
+  function setup(): void {
+    for (const button of document.querySelectorAll("[data-nap-toggle]")) {
+      if (button.hasAttribute("data-nap-initialized")) continue;
+      button.setAttribute("data-nap-initialized", "true");
+      button.addEventListener("click", onClick);
+    }
+    tick();
+    syncNav(false);
+  }
+
+  setup();
+  document.addEventListener("astro:page-load", setup);
+</script>

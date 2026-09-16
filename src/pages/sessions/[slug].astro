@@ -3,7 +3,7 @@ import { render } from "astro:content";
 import { getPublishedCollection } from "astro-course-university/content";
 import RelatedContent from "astro-course-university/components/RelatedContent.astro";
 import SpecList from "astro-course-university/components/SpecList.astro";
-import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import SiteLayout from "../../layouts/SiteLayout.astro";
 import TeachingTeam from "../../components/TeachingTeam.astro";
 import { formatCourseDate } from "../../lib/dates";
 import { graphCollections, sessionLabels, siteConfig } from "../../site-config";
@@ -17,7 +17,7 @@ const { session } = Astro.props;
 const { Content } = await render(session);
 ---
 
-<ContentLayout
+<SiteLayout
   title={`Week ${session.data.week} ${sessionLabels.singular}: ${session.data.title}`}
   description={session.data.description}
   {...siteConfig}
@@ -30,4 +30,4 @@ const { Content } = await render(session);
   </SpecList>
   <TeachingTeam teachers={session.data.teachers} />
   <RelatedContent entry={session} collections={graphCollections} />
-</ContentLayout>
+</SiteLayout>
