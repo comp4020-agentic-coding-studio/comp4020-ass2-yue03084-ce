@@ -230,6 +230,22 @@
     padding: var(--at-spacing-sm) var(--at-spacing-sm)
       calc(var(--at-spacing-sm) + env(safe-area-inset-bottom, 0px));
     border-top: 1px solid var(--at-border);
+
+    /* Opaque, and the page's own colour rather than a surface of its own. The
+       opacity is the requirement — a transparent bar has text scrolling
+       through it instead of under it. Staying at `--at-bg` is the measured
+       part: `--at-bg-alt` was tried, on the theory that the button's
+       `--at-bg-elevated` fill needed a darker surface to sit proud of, and it
+       made the button's edge *less* distinct, not more (1.38:1 → 1.26:1
+       against the bar, awake), because the alt surface sits between the page
+       and the elevated fill rather than under both.
+
+       The theory was wrong about the premise too: the same button floating at
+       1920, in the layout this media query never touches, measures 1.40:1
+       edge-on-page. Its border was never what identified it as a control at
+       either width — that is the shadow and the pill, and docking keeps both.
+       Chasing the number here would have meant overriding `--at-border` for
+       one control on one breakpoint to fix something the dock did not break. */
     background: var(--at-bg);
   }
 }
