@@ -18,7 +18,7 @@ the validation side of consumer sleep devices, which is why week 10 exists and
 why I am harder on your tracker than you will initially think is fair.
 
 I run the labs where something is measured on you — weeks 2, 3, 8 and 10 — and
-I share weeks 1, 4, 6, 9, 11 and 12. If you find yourself irritated that a
+I share weeks 1, 4, 6, 7, 11 and 12. If you find yourself irritated that a
 nine-point scale you filled in by hand is being taken more seriously than a
 device that cost two hundred dollars, that irritation is the intended
 curriculum, and week 10 is where it gets resolved one way or the other.

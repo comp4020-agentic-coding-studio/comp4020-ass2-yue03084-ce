@@ -40,7 +40,7 @@ that does not exist cannot be improved by this session.
 policy. What changes on Monday, for whom, at what cost.
 
 **Then you are argued with, and the role is assigned.** One person in the group
-plays the approver, drawn at random from a set: the finance objection, the
+plays the approver, drawn at random from a set: the cost objection, the
 fairness objection ("if they can, everyone will want to"), the appearances
 objection ("how does this look to clients"), and the precedent objection. You do
 not know which you are getting, because in practice you do not.
