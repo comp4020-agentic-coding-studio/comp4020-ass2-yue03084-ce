@@ -232,3 +232,24 @@ the substance. Questions to answer near the end:
 - **Nap Mode is the one piece with no check behind it until step 8**, and it is
   the piece a marker remembers. It gets built early (step 3) for that reason,
   not late as a flourish.
+
+## Deferred: a contrast test for Nap Mode (revisit at step 8)
+
+Nap Mode dims the page by overriding the lightness of every surface and ink
+token. Nothing stops a later session dimming it further, and the failure is
+quiet: text that is merely *harder* to read still renders, still builds, and
+still passes every check here. The theme's build-time accessibility walk did
+not catch the one real contrast defect this step found, and axe cannot help
+either — the re-lit tokens are `oklch()`, which it declines to parse, so it
+reports "incomplete" rather than pass or fail.
+
+Candidate test, alongside the step 8 specs: parse `src/styles/nap-mode.css`,
+extract the `oklch(from var(--at-primary) L c h)` lightness values and the
+surface lightnesses, read the brand hue from `astro-theme-slop`, convert
+OKLCH → linear sRGB → WCAG relative luminance, and assert each ink clears its
+floor against the surface it sits on — 4.5:1 for body text, 3:1 for large.
+That turns a number someone could nudge into a number that fails a test.
+
+Ratios as built, measured in the browser by painting each computed colour to a
+canvas and reading the pixel back (awake / napping): body 18.64 / 8.76, links
+5.18 / 5.89, "Related" heading 7.82 / 5.89, h1 3.44 (large, floor 3) / 5.89.
