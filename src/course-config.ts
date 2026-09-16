@@ -40,23 +40,23 @@ export const slopCourseMetaSchema = z
 
 // The single source of truth for the course record. The generated homepage,
 // navigation label and /api/index.json all read this object.
-// Replace every placeholder value, but keep the shape: the catalogue ingests
-// this API contract when the course is published.
-//
-// The code's last three digits were assigned to this repo when it was
-// provisioned, and no other course in the cohort has them. Change the first
-// digit to your course's level (and `level` to match); keep the other three.
-// STARTER_CONTENT: replace this course record, then remove this comment.
 export const courseMeta = slopCourseMetaSchema.parse({
   code: "SLOP1227",
-  title: "Course Title Goes Here",
+  title: "Introduction to Naps",
   session: "Semester 1",
   year: 2027,
   level: 1,
   startDate: "2027-02-22",
   endDate: "2027-05-28",
   description:
-    "One concise paragraph explaining what this course is, who it is for, " +
-    "and why somebody would choose to spend a semester taking it.",
-  tags: ["replace me"],
+    "Most adults feel a dip in alertness after lunch, and most institutions " +
+    "pretend they don't. This course takes the nap seriously: the science of " +
+    "the dip, the history that pushed daytime sleep out of ordinary life, and " +
+    "what it would take to let people sleep when their bodies ask to.",
+  tags: ["sleep", "rest", "chronobiology"],
 }) satisfies CourseMetaInput;
+
+// The ideal nap: twenty minutes, short enough to stay out of slow-wave sleep
+// and the sleep inertia that follows it. Week 2 is built on this number and so
+// is Nap Mode's timer, so it lives here rather than in either of them.
+export const NAP_MINUTES = 20;
