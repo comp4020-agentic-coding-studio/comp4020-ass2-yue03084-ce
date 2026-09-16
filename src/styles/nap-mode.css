@@ -279,6 +279,24 @@ body,
    longer label grows into headroom instead of out under the footer. */
 :root {
   --nap-dock-height: 4rem;
+
+  /* What the document reserves for the bar, as one expression: the bar's own
+     height, the margin the bar is held off the text by, and the inset the bar
+     itself pads out past. The third term is the one this existed to fix. The
+     bar's `padding-bottom` adds `env(safe-area-inset-bottom)` so its content
+     clears a home indicator, which makes the bar *taller* than
+     `--nap-dock-height` on a phone that reports an inset — while the
+     reservation, a flat `4rem`, did not grow with it. Desktop Chrome reports
+     the inset as 0, so the two agreed on every width I could measure and
+     disagreed only on the hardware. Substituting an iPhone's 34px: the bar
+     occupies 98px and 72px was reserved, leaving 26px of the document
+     permanently under it — the bottom of the footer, or the last card.
+
+     Both the bar and the reservation now read the same three inputs, so they
+     cannot drift apart again. */
+  --nap-dock-reserve: calc(
+    var(--nap-dock-height) + var(--at-spacing-md) + env(safe-area-inset-bottom, 0px)
+  );
 }
 
 /* At 1920 the control floats in the page's right margin, clear of the text
@@ -299,7 +317,7 @@ body,
    any scroll depth, and outside the navigation it collapses. */
 @media (width < 640px) {
   body {
-    padding-bottom: var(--nap-dock-height);
+    padding-bottom: var(--nap-dock-reserve);
   }
 
   .nap-mode {
