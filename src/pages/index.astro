@@ -1,13 +1,18 @@
 ---
 import Card from "astro-theme-university/components/Card.astro";
 import CardGrid from "astro-theme-university/components/CardGrid.astro";
+import { withBase } from "astro-theme-university/url";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import heroImage from "../assets/images/hero-home.avif";
-import { courseMeta } from "../course-config";
+import { NAP_MINUTES, courseMeta } from "../course-config";
 import { sessionLabels, siteConfig } from "../site-config";
 
 // STARTER_CONTENT: replace the hero artwork and its alt text below, then
 // remove this comment.
+
+// `ContentLayout` already renders `description` as the standfirst under the
+// hero, so nothing below restates it — the long-form course description is
+// distributed across the headings instead of printed twice at two lengths.
 ---
 
 <SiteLayout
@@ -21,31 +26,94 @@ import { sessionLabels, siteConfig } from "../site-config";
     {courseMeta.tags.map((tag) => <li>{tag}</li>)}
   </ul>
 
-  <!-- STARTER_CONTENT: replace the authored page below, then remove this comment. -->
+  <p>
+    The nap is a biological need that modern work schedules erased. This course
+    studies its science, its history, and its return. Every week comes back to
+    that line, and by the end you are expected to have an argument about it that
+    survives contact with someone who runs an institution.
+  </p>
+
   <h2>What you will do</h2>
   <p>
-    Say what a student spends their time on — the making, reading, arguing or
-    measuring that fills the weeks. Name the artefact they walk out with.
+    Nap on purpose, keep records, and defend a policy — in that order, because
+    each one needs the last. You will measure your own alertness with two
+    deliberately unglamorous instruments, nap under observation in the {
+      sessionLabels.plural
+    }, and keep a fortnight's log of what your own sleep actually does. Then you
+    will read how the nap was removed from the working day, how other societies
+    kept it, and who is permitted to be seen sleeping now.
+  </p>
+  <p>
+    You leave with a nap policy for a real institution — costed, argued for, and
+    already survived one room of people whose job was to object to it.
+  </p>
+
+  <h2>The shape of the semester</h2>
+  <p>
+    Twelve weeks in three movements. <strong>Weeks 1–4 are the science</strong>:
+    what a nap is, why length decides everything, and why the afternoon dip is
+    on the clock rather than on the menu. <strong
+      >Weeks 5–9 are the argument</strong
+    >: industrial timekeeping pushed daytime sleep out of ordinary life, other
+    cultures kept or lost it on their own terms, and permission to rest turns
+    out to track social position more closely than it tracks need.
+    <strong>Weeks 10–12 put it back</strong>: what the measuring devices can and
+    cannot see, what sleep does for memory, and how to design a workplace,
+    school or hospital that lets people sleep when their bodies ask to.
   </p>
 
   <h2>Who it is for</h2>
   <p>
-    Say who this is aimed at and what they need to already know. Be specific
-    enough that someone can rule themselves in or out without emailing you.
+    Anyone, in any degree. This is a 1000-level breadth course and no prior
+    knowledge of sleep science is assumed — the biology starts in the first
+    lecture and never goes deeper than a first-year course can carry.
+  </p>
+  <p>
+    You should expect to nap on purpose in front of other people, to record and
+    hand in information about your own sleep, and to write a policy you can
+    defend out loud. If any of those is a problem, read <a
+      href={withBase("/policies/")}>the policies</a
+    > before you enrol rather than after: each one has an alternative, and every
+    alternative is easier to arrange in the first week than in the sixth.
   </p>
 
   <h2>Where to go next</h2>
   <CardGrid columns={2}>
     <Card title={sessionLabels.plural} href="/sessions/">
-      <p>The weekly schedule and what happens in each teaching session.</p>
+      <p>
+        The weekly schedule. Each {sessionLabels.singular} carries that week's
+        substance — what to bring, what happens in the room, what you leave with.
+      </p>
+    </Card>
+    <Card title="Lectures" href="/lectures/">
+      <p>
+        Short, and each one ends with a claim you are asked to argue against.
+        Week 2 comes with slides.
+      </p>
     </Card>
     <Card title="Assessment" href="/assessments/">
-      <p>What is marked, what it is worth, and when it is due.</p>
+      <p>
+        Three pieces, assembled across the teaching weeks rather than set at the
+        end of them.
+      </p>
     </Card>
     <Card title="People" href="/people/">
-      <p>Who teaches the course and how to reach them.</p>
+      <p>
+        Who teaches this, how they ended up on it, and what each of them is
+        worth asking.
+      </p>
     </Card>
   </CardGrid>
+
+  <h2>One more thing</h2>
+  <p>
+    This site has a <strong>Nap Mode</strong>. It dims the page, enlarges the
+    reading text, folds the navigation away, and puts itself back to normal
+    after {NAP_MINUTES} minutes — the nap length week 2 argues is the right one.
+    The button sits at the bottom of the screen and stays there, because it is
+    the switch that ends a nap early and should never be inside the menu it
+    just closed.
+  </p>
 </SiteLayout>
 
 <style>
