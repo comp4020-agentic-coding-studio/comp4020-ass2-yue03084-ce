@@ -5,7 +5,10 @@ import { withBase } from "astro-theme-university/url";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import heroImage from "../assets/images/hero-home.avif";
 import { NAP_MINUTES, courseMeta } from "../course-config";
+import { deckLecture } from "../lib/deck";
 import { sessionLabels, siteConfig } from "../site-config";
+
+const deck = await deckLecture();
 
 // `ContentLayout` already renders `description` as the standfirst under the
 // hero, so nothing below restates it — the long-form course description is
@@ -85,7 +88,7 @@ import { sessionLabels, siteConfig } from "../site-config";
     <Card title="Lectures" href="/lectures/">
       <p>
         Short, and each one ends with a claim you are asked to argue against.
-        Week 2 comes with slides.
+        {deck && ` Week ${deck.data.week} comes with slides.`}
       </p>
     </Card>
     <Card title="Assessment" href="/assessments/">
