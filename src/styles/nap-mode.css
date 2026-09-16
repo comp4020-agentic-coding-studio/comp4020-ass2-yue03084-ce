@@ -189,3 +189,47 @@
 .nap-mode__time:empty {
   display: none;
 }
+
+/* The docked bar's height, so the narrow layout below can reserve it. Declared
+   outside `[data-nap]` because the bar docks in both states — the nap only
+   changes what the button says, and the bar measures 64px either way (its
+   label is `--at-font-size-sm`, which the nap's text scale does not reach).
+   4rem is 72px at this root size: the 8px over is deliberate slack, so a
+   longer label grows into headroom instead of out under the footer. */
+:root {
+  --nap-dock-height: 4rem;
+}
+
+/* At 1920 the control floats in the page's right margin, clear of the text
+   column. At 390 there is no margin, and measuring it there is what caught
+   this: the button lands on top of the body copy, and in Nap Mode the wider
+   "Wake up 20 min" covers two lines of the enlarged type — occluding the
+   reading the mode exists to make easier, and doing it worst in the state the
+   whole feature is for.
+
+   So below the width where a margin exists it stops floating and docks: a bar
+   across the bottom edge, with `body` reserving its height. Being fixed, it is
+   still crossed by text mid-scroll — that part is unavoidable and measured,
+   not assumed. What the reserved padding buys is that nothing ends up
+   *permanently* under it: the document can always be scrolled clear, which the
+   float could not promise for the last line or the footer. And the obstruction
+   moves from mid-column, where it takes words out of a line being read, to the
+   screen edge. Both properties the float was chosen for survive: reachable at
+   any scroll depth, and outside the navigation it collapses. */
+@media (width < 640px) {
+  body {
+    padding-bottom: var(--nap-dock-height);
+  }
+
+  .nap-mode {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    padding: var(--at-spacing-sm) var(--at-spacing-sm)
+      calc(var(--at-spacing-sm) + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid var(--at-border);
+    background: var(--at-bg);
+  }
+}
