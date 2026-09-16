@@ -1,0 +1,58 @@
+---
+title: Measuring the nap
+description:
+  Wearables report sleep stages they cannot see — what the devices actually
+  measure, and how far the number on the screen is from it
+week: 10
+date: 2027-05-10
+teachers:
+  - idris-fenn
+related:
+  - sessions/10-the-device-and-the-night
+---
+
+import { NAP_MINUTES } from "../../course-config";
+
+This course has been asking you to measure yourself with a nine-point scale and
+a reaction-time task, while most of you own a device that claims to do better.
+This week is about whether it does. The answer matters beyond gadgets: nearly
+every popular claim about sleep now rests on data of this kind.
+
+## Outline
+
+- **The reference standard.** Polysomnography — brain activity, eye movement,
+  muscle tone — is how sleep stages are defined. It requires a lab, electrodes
+  and a scorer. Everything else is an approximation of it, and the size of the
+  approximation is the subject of this lecture.
+- **What a wrist device actually has.** Movement, and usually heart rate from an
+  optical sensor. That is the whole input. Not brain activity, not eye movement.
+- **From movement to a hypnogram.** Actigraphy is decent at separating sleep
+  from wake, because sleeping people move less. Stage classification is inferred
+  from patterns in those two signals by a proprietary model, and that inference
+  is where the confidence in the display comes from rather than from anything
+  observed.
+- **The known failure mode.** Lying still while awake reads as sleep. This
+  matters most for the people most worried about their sleep, whose devices
+  reassure them precisely when they should not.
+- **Short sleep is the hard case.** A {NAP_MINUTES}-minute nap sits near or
+  below the resolution of these systems. The course's central object is close to
+  invisible to the instruments most people would use to observe it.
+- **Validation, and its absence.** Some devices have published agreement studies
+  against polysomnography; most do not, and agreement on stages is consistently
+  worse than agreement on total sleep time. Algorithms also change in firmware
+  updates, so last year's validation may not describe this year's device.
+- **Why the number is so confident.** A hypnogram with clean coloured bands is a
+  design decision. The underlying estimate has uncertainty that the display does
+  not show, and showing it would make the product worse and the data better.
+
+## The claim to argue with
+
+> Your sleep tracker is a reasonably good movement sensor wrapped in a
+> presentation layer that implies a measurement it did not take.
+
+## Before next week
+
+Week 11 asks what a nap is *for* rather than what it looks like — memory
+consolidation, and whether to sleep before or after studying. It is the week
+most directly useful to you as students, and it arrives with a practical
+question you can test in the exam period.
