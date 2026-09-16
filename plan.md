@@ -6,60 +6,108 @@ Working document. Not part of the deployed site, and not process evidence ---
 > **Due noon, Monday 21 September 2026.** Everything below is sized against
 > that, not against a comfortable week.
 
-## Topic: not yet chosen
+## Topic: Introduction to Naps
 
-The previous topic was dropped before any content was written, so nothing here
-is sunk cost --- no content files, no components, no config. The sections below
-are the parts of the plan that do not depend on which topic wins.
+**The nap is a biological need that modern work schedules erased.** The course
+studies its science, its history, and its return. Every week connects back to
+that line.
 
-When a topic is chosen, record it in **two** places: a sentence or two in
-`CLAUDE.md` (loaded into every session automatically) and the detail here
-(loaded into none). See `CLAUDE.md` → "Keeping this file honest".
+### Why this clears the brief
 
-### What the topic has to clear
+- **Niche, not a reskin.** No real university runs twelve weeks on daytime
+  sleep, and the subject is deep enough to carry them: sleep architecture,
+  caffeine pharmacology, chronobiology, labour history, anthropology, public
+  health, wearable data, memory consolidation, institutional design.
+- **Twelve distinguishable weeks.** The brief's honest test. Week 5 (industrial
+  timekeeping killed the nap) and week 10 (how bad sleep-tracker data is) cannot
+  be swapped for each other.
+- **The site enacts its subject.** Nap Mode --- see below. Layout and components
+  only; the Slop brand colours and logo are fixed.
 
-- **Niche enough that no real university runs it, deep enough to fill a
-  semester** --- one idea held all the way through, not COMP4020 with the nouns
-  swapped. This is the 35% "response to the brief" criterion and no check can
-  catch a course that is complete but thin.
-- **Twelve weeks of genuinely different material.** The honest test: can I write
-  twelve week titles right now, that a reader could tell apart? If week 7 and
-  week 9 sound interchangeable, the topic is too narrow to survive.
-- **Something the site itself can enact.** The strongest single move available
-  is a site that demonstrates its own subject in a way a marker remembers after
-  ten minutes. This is worth more than a visual redesign --- and the Slop brand
-  colours and logo are fixed anyway, so layout and components are the only
-  things actually available to change.
+### The twelve weeks
 
-## Course identity — to fill in
+Each week is one lecture (short, links out) plus one Nap Lab (the substance).
+
+| Wk | Title | Field |
+|---|---|---|
+| 1 | What is a nap --- sleep stages and the 90-minute cycle | sleep science |
+| 2 | Twenty minutes or ninety --- sleep inertia, and why the middle is worst | neuroscience |
+| 3 | The coffee nap --- caffeine pharmacology and the 15-minute window | pharmacology |
+| 4 | Why 2pm --- circadian rhythm and the post-lunch dip | chronobiology |
+| 5 | How the Industrial Revolution killed the nap --- clocks, factories, segmented sleep | history |
+| 6 | Siesta, 午休, inemuri --- three nap regimes and what each permits | anthropology |
+| 7 | The politics of the office nap --- who is allowed to be seen sleeping | labour sociology |
+| 8 | Nap pods and sleep as a product --- the commodification of rest | design / business |
+| 9 | Infants, elders, shift workers --- who needs naps most, and who gets them | public health |
+| 10 | Measuring the nap --- wearables, trackers, and how bad the data is | data |
+| 11 | Naps and memory --- consolidation, and whether to sleep before or after studying | cognitive science |
+| 12 | Design an institution that permits napping --- synthesis | design |
+
+### Nap Mode --- the feature that carries the idea
+
+A toggle in the site header. On: the page dims, body text enlarges, the
+navigation collapses, and the site returns to normal **by itself after twenty
+minutes** --- Week 2's ideal nap length.
+
+Settled before any code, because both halves have bitten this repo's rules
+before:
+
+- **When it updates:** on click, *and on every page load*. This is a multi-page
+  Astro site, so a boolean in memory dies at the first navigation. What persists
+  is an **expiry timestamp**; each page load applies Nap Mode if `now < expiry`
+  and sets a timer for the remainder.
+- **What must not change:** every link still works; the collapsed navigation
+  stays keyboard-reachable; with JS disabled the site is simply the ordinary
+  site; `astro-theme-university`'s a11y pass stays at zero violations; the
+  dimming never drops text contrast (brand colours are fixed); the twenty-minute
+  revert does not steal focus.
+- **Twenty minutes is one constant**, read by the toggle and by Week 2's page.
+  Two copies of that number is exactly the "one fact, two homes" failure
+  `CLAUDE.md` names.
+
+## Course identity — settled
 
 | | |
 |---|---|
-| Code | `SLOP?227` --- spec: **"keeps the three digits your repo arrived with"**. Only the first digit (level) is free |
-| Level | must equal the code's first digit; schema allows 1, 2, 3, 4, 6, 8 |
-| Title | ≤100 chars |
+| Code | `SLOP1227` --- the three digits arrived with the repo; only the level digit was free |
+| Level | 1 --- must equal the code's first digit |
+| Title | Introduction to Naps |
 | Session / year | Semester 1, 2027 (already in `course-config.ts`) |
 | Teaching period | 2027-02-22 → 2027-05-28 (already in `course-config.ts`) |
-| Session label | `sessionLabels` in `src/site-config.ts` --- rethemeable (Studios, Screenings, Labs…) |
-| Description | 80–300 chars, schema-enforced |
-| Tags | 1–3, each 2–24 chars |
+| Session label | **Nap Lab / Nap Labs** --- `sessionLabels` in `src/site-config.ts`. The collection and the URL stay `sessions` |
+| Description | 80–300 chars, schema-enforced --- so the homepage paragraph is *too long for this field*. Condense for `courseMeta.description`; the full paragraph is homepage body copy |
+| Tags | `sleep`, `rest`, `chronobiology` |
 
-### The week cadence (topic-independent)
+### The week cadence
 
-Mondays from 2027-02-22, one break week after week 6. This fits the existing
-teaching period without touching `course-config.ts`:
+Mondays from 2027-02-22, with a **two-week** mid-semester break after week 6.
+That is what makes the existing `endDate` land exactly: week 12 is 2027-05-24
+and its Friday is 2027-05-28, the last day of the teaching period. A one-week
+break would end teaching on 05-21 and leave a stray week in `course-config.ts`.
 
 | Wk | Date | | Wk | Date |
 |---|---|---|---|---|
-| 1 | 02-22 | | 7 | 04-12 |
-| 2 | 03-01 | | 8 | 04-19 |
-| 3 | 03-08 | | 9 | 04-26 |
-| 4 | 03-15 | | 10 | 05-03 |
-| 5 | 03-22 | | 11 | 05-10 |
-| 6 | 03-29 | | 12 | 05-17 |
+| 1 | 02-22 | | 7 | 04-19 |
+| 2 | 03-01 | | 8 | 04-26 |
+| 3 | 03-08 | | 9 | 05-03 |
+| 4 | 03-15 | | 10 | 05-10 |
+| 5 | 03-22 | | 11 | 05-17 |
+| 6 | 03-29 | | 12 | 05-24 |
 
-Break: 2027-04-05. Timezone detail for assessment `due` values: March is AEDT
-(`+11:00`), April and May are AEST (`+10:00`) --- DST ends 2027-04-04.
+Break: 2027-04-05 and 2027-04-12. Timezone detail for assessment `due` values:
+up to 2027-04-04 is AEDT (`+11:00`), after it AEST (`+10:00`) --- DST ends that
+Sunday.
+
+### Assessments (sum to 100, which is one of the three spec tests)
+
+| Assessment | Weight | Due | Wk |
+|---|---|---|---|
+| Nap Log --- two-week nap diary plus an analysis of the data | 30% | 2027-04-02 (AEDT) | 6 |
+| Cultural Case Study --- 1500 words on one culture's nap regime | 30% | 2027-04-30 (AEST) | 8 |
+| Nap Policy Proposal --- a nap policy for a real institution, and its defence | 40% | 2027-05-28 (AEST) | 12 |
+
+All three fall inside the teaching period, which `data-integrity.test.ts`
+already enforces.
 
 Sessions carry the substance; lectures stay short and link out. That is the
 template's own instruction and it is "one fact, one place" applied to content ---
@@ -69,7 +117,7 @@ it is also what makes 12 + 12 entries feasible rather than double work.
 
 **None of these exist yet.** `spec/` holds exactly two files:
 `data-integrity.test.ts` (shipped; dates inside the teaching period) and
-`invariants.test.ts` (per-page HTML invariants). The three below go in a new
+`invariants.test.ts` (per-page HTML invariants). The four below go in a new
 `spec/course-contract.test.ts`, each landing **after** the content it asserts so
 nothing is ever committed red.
 
@@ -81,10 +129,11 @@ page must do, not how you built it".
 ### Read the API, not the source
 
 `data-integrity.test.ts` doesn't parse frontmatter --- it reads the built
-`dist/api/index.json` and filters `api.nodes` by `node.type`. All three tests
-below should follow it. The API is what the course actually publishes;
+`dist/api/index.json` and filters `api.nodes` by `node.type`. The first three
+tests below follow it. The API is what the course actually publishes;
 frontmatter is only its raw material, so asserting against the API is what makes
-these tests survive a change of content structure.
+these tests survive a change of content structure. The fourth is about rendered
+pages, so it reads `dist/**/*.html` the way `invariants.test.ts` does.
 
 1. **Twelve weeks, no gaps or duplicates** --- `type === "sessions"`, collect
    `meta.week`, assert the set is exactly 1–12. The schema caps `week` at 12 but
@@ -97,39 +146,56 @@ these tests survive a change of content structure.
 3. **A real deck, linked** --- some `type === "lectures"` node has `meta.slides`,
    *and* the deck it names exists in the build (`dist/decks/<name>/index.html`).
    Field presence alone passes while pointing at nothing.
+4. **Nap Mode reaches every page** --- the toggle is in the built HTML of every
+   page of the site (decks excluded: a deck carries no site chrome, which
+   `invariants.test.ts` already encodes). This is the promise the course makes
+   that the build cannot check: a header component silently dropped from one
+   layout is invisible to types, lint and a11y alike, and the one page missing
+   it would be the one a marker opens.
 
-Each retires one bullet in `CLAUDE.md` → "This deliverable's requirements";
-those carry that expiry condition in writing. Deleting them when the test lands
-is part of the work.
+The first three retire a bullet each in `CLAUDE.md` → "This deliverable's
+requirements"; those carry that expiry condition in writing. Deleting them when
+the test lands is part of the work.
 
 ## Build sequence
 
 Commits are the process record and process is 45% of the mark, so this is
 sequenced as commits, not as tasks.
 
-1. **Course record** --- `course-config.ts` (code, title, level, description,
-   tags) and `sessionLabels`. Clears the first `STARTER_CONTENT` marker.
-2. **Vertical slice: one week, end to end** --- session + lecture + the real
-   deck + whatever component carries the site's visual idea. One week fully
+1. **Course record** --- `course-config.ts` (title, description, tags) and
+   `sessionLabels` → Nap Lab. Clears the first `STARTER_CONTENT` marker.
+2. **Vertical slice: week 2, end to end** --- Nap Lab + lecture + the real deck
+   (`src/decks/week-02.deck.mdx`, replacing the starter `week-01.deck.mdx`).
+   Week 2 rather than week 1 because "twenty minutes or ninety" is the fact Nap
+   Mode enacts, so content and feature are settled together. One week fully
    right before twelve weeks half right.
-3. **Weeks 1, 3–6.**
-4. **Weeks 7–12.**
-5. **Spec test: twelve weeks** --- only now, because only now can it be green.
+3. **Nap Mode** --- the constant, the toggle, the persistence, the revert. Its
+   contract is written above; build against that, not against a fresh idea.
+4. **Weeks 1, 3–6.**
+5. **Weeks 7–12.**
+6. **Spec test: twelve weeks** --- only now, because only now can it be green.
    The test lands *after* the content it asserts, never before.
-6. **Assessments** ×3, then **spec test: weights sum to 100** --- same order,
+7. **Assessments** ×3, then **spec test: weights sum to 100** --- same order,
    same reason.
-7. **Spec test: deck linked and built** --- last of the three because it also
-   asserts built output, so it wants a build containing everything.
-8. **People** --- rewrite the two starter staff.
-9. **Policies + 404.**
-10. **Home page + the component that carries the idea.**
-11. **Card image** --- `check:evidence` fails while `src/assets/images/card.png`
+8. **Spec tests: deck linked and built, and Nap Mode on every page** --- both
+   assert built output, so they want a build containing everything.
+9. **People** --- rewrite the two starter staff, and **delete both `.avif`
+   portraits** along with their `photo`/`photoAlt` frontmatter. `photo` is
+   optional in the schema, and `check-evidence.ts` says in its own comment that
+   a deleted file passes: an image-free treatment is a design decision. Giving
+   invented staff invented faces is the thing worth avoiding.
+10. **Policies + 404.**
+11. **Home page** --- the full course paragraph as body copy, since it is far
+    longer than `description`'s 300-char ceiling.
+12. **Card image** --- `check:evidence` fails while `src/assets/images/card.png`
     still hashes to the shipped placeholder. Author at 1200×630 and replace.
-12. **Starter sweep** --- 12 files carry `STARTER_CONTENT`; all must go, and
+    `hero-home.avif` is on the same list.
+13. **Starter sweep** --- 12 files carry `STARTER_CONTENT`; all must go, and
     `check:evidence` greps `src/` for them.
-13. **Viewport pass** --- 1920 and 390, on the built site. `agent-browser` is
-    not installed in this repo; install it or use another real browser.
-14. **Ship** --- public with a day's margin, then open the live Pages URL and
+14. **Viewport pass** --- 1920 and 390, on the built site, Nap Mode on and off.
+    `agent-browser` is not installed in this repo; install it or use another
+    real browser.
+15. **Ship** --- public with a day's margin, then open the live Pages URL and
     load a real page. Nothing in `check` looks at the live URL.
 
 ## Discipline for this build
@@ -162,4 +228,7 @@ the substance. Questions to answer near the end:
 - **Anything with a fixed height** --- measure `scrollHeight` against
   `clientHeight` at 390, don't eyeball it. See `CLAUDE.md`.
 - **Card image** --- easy to leave until last and then find `check:evidence` red
-  at ship time. It is step 11, not step 14, on purpose.
+  at ship time. It is step 12, not step 15, on purpose.
+- **Nap Mode is the one piece with no check behind it until step 8**, and it is
+  the piece a marker remembers. It gets built early (step 3) for that reason,
+  not late as a flourish.

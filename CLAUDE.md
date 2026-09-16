@@ -15,11 +15,22 @@ stack or gets deleted along with the ones that still matter. See
 
 ## What this course is
 
-**Not yet decided.** When a topic is chosen it gets a sentence or two here *and*
-the detail in [`plan.md`](plan.md) --- here because this file loads into every
-session automatically, there because `plan.md` does not. *(A topic and a whole
-build plan were once settled only in `plan.md`, which nothing referenced: an
-agent starting fresh knew every rule here and not what it was building.)*
+**SLOP1227: Introduction to Naps** --- a 1000-level breadth course arguing that
+the nap is a biological need modern work schedules erased. Twelve weeks hold
+that one line: what the brain does in twenty minutes of sleep, why the afternoon
+dip exists, how industrial timekeeping pushed daytime sleep out of ordinary
+life, which cultures kept it, and what it would take to design workplaces,
+schools and hospitals that let people sleep when their bodies ask to. The site
+enacts its own subject --- a **Nap Mode** toggle dims the page, enlarges body
+text, collapses the navigation, and reverts itself after twenty minutes, which
+is Week 2's ideal nap length read from a single constant.
+
+The detail --- week cadence, dates, assessments, build sequence --- is in
+[`plan.md`](plan.md): a sentence or two here because this file loads into every
+session automatically, the rest there because `plan.md` does not. *(A topic and
+a whole build plan were once settled only in `plan.md`, which nothing
+referenced: an agent starting fresh knew every rule here and not what it was
+building.)*
 
 ## This deliverable's requirements
 
