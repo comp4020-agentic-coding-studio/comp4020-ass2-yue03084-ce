@@ -120,6 +120,21 @@ stack or gets deleted along with the ones that still matter. See
 - `spec/*.test.ts` runs with `pnpm check`. `spec/invariants.test.ts` holds what
   is true of any good site; `spec/data-integrity.test.ts` ships with the
   template; the week's own contract goes in a file alongside them.
+- **online** --- a green `deploy` job is not proof the site serves. After
+  shipping, open the deployed Pages URL yourself and load a real page: an asset
+  that 404s there is broken even though it loaded locally. Nothing in `check`
+  looks at the live URL.
+- `pnpm check` chains its steps with `&&`, so the first red one stops the rest.
+  A broken build means lint and the spec never ran --- "lint passed" is then
+  something you have not actually learnt yet. While the repo is private CI is
+  skipped entirely, so this local run is the only loop there is; once it is
+  public, CI needs time to finish, and still-running counts as not green.
+- Accessibility is already measured. `astro-theme-university` walks every built
+  page during `pnpm build` and logs how many it checked and whether any
+  violated. Don't wire a second a11y sensor --- read that one.
+- **Performance is measured by nothing here.** If the spec wants evidence you
+  tested it, that is your work. And read a green number honestly: it is one run
+  on a CI machine, not proof the site is fast for real users.
 
 ## Keeping this file honest
 
