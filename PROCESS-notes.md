@@ -107,6 +107,29 @@ it":
   session, repointed a deck, shaved a weight) before being trusted — "a test
   that has never failed is not yet evidence."
 
+## A measured limit, left in on purpose (material for question 4)
+
+An example of a boundary measured and then *not* fixed — a harder claim than
+"I measured it and fixed it".
+
+**Above 640px the floating pill has zero clearance.** Below 640 it docks and
+`--nap-dock-reserve` reserves bar + margin + `env(safe-area-inset-bottom)`:
+26px measured at 390, awake and napping, inset 0 and 34 (`7c09d42`). Above
+640 nothing is reserved — footer clearance is 0 at 640/900/1280/1920 either
+state, with the pill 72–73px inside the footer's box. `elementsFromPoint` at
+its corners and centre finds only `div.at-footer-inner` or `footer.at-footer`,
+no text leaf, so nothing is hidden today.
+
+Worth recording anyway: below 640 "you can scroll clear of it" is true *by
+construction*; above 640 only *by coincidence*, because that footer corner
+happens to be empty — a property of today's content, not of the layout. And
+the pill's own width already swings 112→162px with its label, which no
+reservation accounts for.
+
+Left unfixed: reserving at every width leaves ~90px of blank under the footer,
+and padding the footer alone buries a global constraint in one component.
+Three days out, with the brief at 35%, content was worth more.
+
 ## Citation format reminder (from the skeleton)
 
 `[`<sha>`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/<sha>)`
