@@ -229,7 +229,29 @@ requirement.
   `PROCESS.md` cites a commit SHA that doesn't exist in this repo. Assignment
   repos carry no `reflections/` entry --- it checks for none.
 - `pnpm test:template` --- the template's own tests, over `scripts/`. Don't edit
-  those; they guard the Pages base path and the course config.
+  those; they guard the Pages base path and the course config. **It fails here,
+  4 of 40, and that is not a thing to fix.** All four are
+  `scripts/check-evidence.test.ts:217`, `"rejects the unchanged starter %s"`,
+  which copies the four starter images *out of the live working tree* into a
+  fixture and asserts `check:evidence` rejects them. Two are present but
+  legitimately re-cut (`73d30ea`), so their hashes no longer match the
+  placeholder, `check:evidence` correctly exits 0, and the test reports
+  `expected +0 to be 1`. The other two are the staff portraits, deleted on
+  purpose (`b7c6e7a`, and the fiction/fabrication bullet above), so
+  `copyFileSync` raises `ENOENT`. **Doing the assignment correctly is what
+  turns this red, and the only way to make it green is to restore the starter
+  artwork --- which turns `check:evidence` red.** The two gates cannot both be
+  green in a finished repo. CI knows this:
+  `.github/workflows/checks.yml:41` runs this job only `if: ${{
+  github.event.repository.is_template }}` ("These tests protect starter
+  internals, not decisions students make"), and line 46 gates `check:evidence`
+  on the negation. A student repo is not a template, so CI skips the job and
+  this local red cannot turn the ship red. *(Written down because a red gate
+  with no explanation invites a "fix", and here the available fix is a
+  regression that would undo `73d30ea` and `b7c6e7a`. Found by running it: the
+  A2 audit listed this gate and never ran it, so four reds sat unexplained for
+  a week. Expires if the template guards that `copyFileSync` with an
+  `existsSync`, which would take the two ENOENT cases out.)*
 - CI runs the same, plus two secret scans (both trufflehog --- one for live
   secrets, one matching the course key's shape via `.github/trufflehog.yml`),
   the deploy, and a job that verifies the deployed site is online.
