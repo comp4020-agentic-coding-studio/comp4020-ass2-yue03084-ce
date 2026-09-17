@@ -55,9 +55,15 @@ requirement.
   repo arrived with"**, **"running across twelve dated teaching weeks"**, with
   **"at least one lecture carries a real deck, linked from its page"** and
   **"assessment that adds up to 100%"**. All four are asserted in
-  `spec/course-promises.test.ts` now --- weeks 1–12 exactly, every `slides`
-  link resolving to a built, non-empty deck, and weights summing to 100 ---
-  so a read-through is no longer the only thing catching a gap here.
+  `spec/course-promises.test.ts` now --- the code's last three digits still
+  `227`, weeks 1–12 exactly, a deck with slides on it linked from every
+  lecture, and weights summing to 100 --- so a read-through is no longer the
+  only thing catching a gap here. *(This said "all four" while listing three:
+  the code had no test, and the schema's regex fixes only the code's shape, so
+  `SLOP1500` built green. The claim was made true by adding the check rather
+  than by softening the sentence --- but it was wrong in this file for two
+  weeks, which is the exact failure "a wrong reason is worse than none" names
+  below.)*
 - **"your own checks in `spec/`, protecting the promises your course makes that
   the build cannot"**. *(So the tests above are required, not optional --- easy
   to miss, because `spec/README.md` frames them as "yours to write".)*
@@ -186,6 +192,19 @@ requirement.
 - **This file is process evidence.** The harness built to direct the agent ---
   this `CLAUDE.md` --- is itself read as part of how the work was done. Keep it
   honest and current.
+- **The course is a fiction; nothing inside it is a fabrication.** An invented
+  course with invented staff is the assignment. A *photograph* of a person who
+  does not exist is not --- it was the one piece of the template that would
+  have been a forgery rather than a fiction, so both starter portraits were
+  deleted rather than replaced (`b7c6e7a`). The line is whether a reader could
+  mistake the artefact for a record of something real: invented names, weeks
+  and readings are transparently part of the fiction, while a face, a citation
+  or a commit SHA reads as a record and would be a false one. So no invented
+  faces, no invented citations, no invented SHAs --- if a piece of the fiction
+  needs one of those to work, cut the piece. *(Written down because it was
+  decided once, in a commit body, and "a decision recorded only where nothing
+  points is not recorded" is this file's own rule. Nothing checks the faces;
+  `check:evidence` does check the SHAs.)*
 - **Don't draft `PROCESS.md` for the student, even to get a check green.** The
   spec says it **"runs to 400–600 words"** and is **"written by you for a
   reader"** --- the spec's own words settle whose account it is.
