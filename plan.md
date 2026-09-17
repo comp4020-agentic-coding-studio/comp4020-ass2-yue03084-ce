@@ -49,6 +49,12 @@ A toggle in the site header. On: the page dims, body text enlarges, the
 navigation collapses, and the site returns to normal **by itself after twenty
 minutes** --- Week 2's ideal nap length.
 
+*(The header part did not survive the build: the toggle is a labelled pill
+carrying a countdown, too wide for the nav's row of 45px icon buttons, and the
+nav's links collapse during a nap. Fixed bottom-right in `d74a9f0`, docked
+below 640px in `7bfaafc`. Placement was the only part of this section the
+implementation overruled.)*
+
 Settled before any code, because both halves have bitten this repo's rules
 before:
 

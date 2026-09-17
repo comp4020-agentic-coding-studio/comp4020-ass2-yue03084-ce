@@ -229,10 +229,11 @@ body,
   grid-template-rows: 1fr;
 }
 
-/* The control itself. Fixed bottom-right rather than in the nav: the nav's
-   right edge is already the search button's, and — the reason that matters
-   more — this is the switch that ends a nap early, so it has to stay in reach
-   at any scroll depth and must not be inside the navigation it collapses. */
+/* The control itself. Fixed bottom-right rather than in the nav: it is a
+   labelled pill carrying a live countdown — 112px awake, 162px napping —
+   and the nav's right edge is an icon row (45px buttons) that already holds
+   the search trigger. The nav's links do collapse during a nap, so it can't
+   sit among those either. */
 .nap-mode {
   position: fixed;
   right: var(--at-spacing-lg);
