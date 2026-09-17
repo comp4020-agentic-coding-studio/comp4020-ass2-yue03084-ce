@@ -121,11 +121,18 @@ it is also what makes 12 + 12 entries feasible rather than double work.
 
 ## Checks to add
 
-**None of these exist yet.** `spec/` holds exactly two files:
-`data-integrity.test.ts` (shipped; dates inside the teaching period) and
-`invariants.test.ts` (per-page HTML invariants). The four below go in a new
-`spec/course-contract.test.ts`, each landing **after** the content it asserts so
-nothing is ever committed red.
+**All four landed.** They are in `spec/course-promises.test.ts` --- named
+`course-promises`, not the `course-contract` this section first planned ---
+alongside `data-integrity.test.ts` (shipped; dates inside the teaching period)
+and `invariants.test.ts` (per-page HTML invariants). Each landed **after** the
+content it asserts, so nothing was ever committed red.
+
+Two more were added later, after an audit found each of them passing a mutated
+build silently. They were not in the plan because the plan could not see them:
+both are promises the site grew into. The **course code's three digits** were
+guarded only for *shape* by the schema, so `SLOP1500` built green; and **Nap
+Mode's twenty minutes** had nothing asserting either the length or the revert.
+Check 3 below also turned out to measure less than it claimed --- see its entry.
 
 These are not optional. The spec lists **"your own checks in `spec/`, protecting
 the promises your course makes that the build cannot"** among its fixed
@@ -151,7 +158,12 @@ pages, so it reads `dist/**/*.html` the way `invariants.test.ts` does.
    the course. A real gap, not a redundant test.
 3. **A real deck, linked** --- some `type === "lectures"` node has `meta.slides`,
    *and* the deck it names exists in the build (`dist/decks/<name>/index.html`).
-   Field presence alone passes while pointing at nothing.
+   Field presence alone passes while pointing at nothing. *As planned this was
+   half a check: "exists" landed as a 500-byte floor, and the Reveal shell alone
+   is ~2,950, so a deck gutted to one slide cleared it five times over. It now
+   counts `<section` elements. And because every lecture ended up with a deck,
+   "some node has `slides`" stopped describing the site --- removing a lecture's
+   `slides:` line passed silently, so "one per lecture" is asserted too.*
 4. **Nap Mode reaches every page** --- the toggle is in the built HTML of every
    page of the site (decks excluded: a deck carries no site chrome, which
    `invariants.test.ts` already encodes). This is the promise the course makes
@@ -161,12 +173,17 @@ pages, so it reads `dist/**/*.html` the way `invariants.test.ts` does.
 
 The first three retire a bullet each in `CLAUDE.md` → "This deliverable's
 requirements"; those carry that expiry condition in writing. Deleting them when
-the test lands is part of the work.
+the test lands is part of the work. *Done in `22f97b9`, which claimed all four
+requirements were asserted while only three were --- the course code was not.
+Adding that check made the claim true rather than weakening it.*
 
 ## Build sequence
 
 Commits are the process record and process is 45% of the mark, so this is
 sequenced as commits, not as tasks.
+
+*Steps 1–13 are done; the deck in step 2 was the first of twelve, not the only
+one. Steps 14 and 15 are the ones left, and 15 is the deadline.*
 
 1. **Course record** --- `course-config.ts` (title, description, tags) and
    `sessionLabels` → Nap Lab. Clears the first `STARTER_CONTENT` marker.
@@ -226,8 +243,8 @@ the substance. Questions to answer near the end:
 
 - **Time.** The deadline is days away and the content is the bulk of the work:
   12 sessions + 12 lectures + 3 assessments + people + policies + home. Current
-  progress is measurable --- `dist/api/index.json` has **9 nodes** today and
-  should end in the low thirties.
+  progress is measurable --- `dist/api/index.json` had **9 nodes** when this was
+  written and should end in the low thirties. *It ends at 30.*
 - **Content volume vs. depth.** Twelve thin weeks fail the 35% criterion as
   surely as eleven good ones fail the spec. Lectures being short *by design* is
   what buys the depth.
