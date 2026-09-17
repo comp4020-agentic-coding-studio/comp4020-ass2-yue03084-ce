@@ -42,6 +42,31 @@ const htmlPages = (() => {
 
 const read = (page: string) => readFileSync(join(dist, page), "utf8");
 
+describe("the code this repo was issued", () => {
+  // `slopCourseMetaSchema` fixes the code's *shape* — `SLOP`, a level digit
+  // from the allowed set, then three more — and `superRefine` ties that level
+  // digit to the `level` field. Neither holds the three digits themselves, so
+  // `SLOP1500` satisfies the schema, builds green, and is a different course
+  // from the one this repo arrived as. The deliverable is specific about it:
+  // the code must keep "the three digits your repo arrived with".
+  const ISSUED_DIGITS = "227";
+
+  it("keeps the three digits the repo arrived with", () => {
+    expect(
+      api.course.code.slice(-3),
+      `${api.course.code} is not a ${ISSUED_DIGITS} course — this repo was issued SLOP1${ISSUED_DIGITS}`,
+    ).toBe(ISSUED_DIGITS);
+  });
+
+  it("publishes that code where a reader sees it", () => {
+    // Read from the API rather than the literal above: the code being right
+    // and the code being on the page are two promises, not one fact twice.
+    expect(read("index.html"), "the home page never names the course code").toContain(
+      api.course.code,
+    );
+  });
+});
+
 describe("twelve dated teaching weeks", () => {
   // The schema caps `week` at 12 and refuses 13, which is a different promise:
   // it accepts three sessions in week 4 and none in week 9, and the course
