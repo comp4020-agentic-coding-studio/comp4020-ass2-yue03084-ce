@@ -225,3 +225,78 @@ describe("Nap Mode reaches the whole site", () => {
     expect(read("index.html")).toContain(expected);
   });
 });
+
+describe("the nap ends on its own, after the length the course teaches", () => {
+  // The site's whole argument is that it enacts its subject: it reverts after
+  // `NAP_MINUTES`, the same twenty minutes week 2 defends. Nothing checked
+  // either half of that. The schema never sees the number, the build never
+  // runs the timer, and a nap wired to a boolean instead of an expiry — or to
+  // a duration typed in by hand — looks identical on every page.
+  //
+  // Both numbers below are read out of `dist/`, not imported from
+  // `src/course-config.ts`, and that is the point: the prose gets the constant
+  // through Astro's interpolation and the timer gets it through the bundler
+  // multiplying by 60_000. They are two pipelines off one constant, so making
+  // them agree is a real assertion. Hardcode a duration in `NapMode.astro` and
+  // they diverge; the test cannot pass vacuously because neither side is
+  // reading the other.
+
+  /** The nap's length, as the home page states it to a reader. */
+  const taughtMinutes = (() => {
+    const stated = /back to normal\s+after\s+(\d+)\s+minutes/.exec(read("index.html"));
+    expect(
+      stated,
+      "the home page no longer states the nap's length in the sentence this test reads — if the copy moved, move the pattern with it",
+    ).not.toBeNull();
+    return Number(stated![1]);
+  })();
+
+  /** Every built script that carries Nap Mode's behaviour, hashed name and all. */
+  const napScripts = (() => {
+    const dir = join(dist, "_astro");
+    return readdirSync(dir)
+      .filter((name) => name.endsWith(".js"))
+      .map((name) => readFileSync(join(dir, name), "utf8"))
+      .filter((source) => source.includes(":nap-until"));
+  })();
+
+  /**
+   * Every spelling a minifier might give one integer. `1200000` ships as
+   * `12e5` today, so matching the plain decimal alone would fail on a correct
+   * build — the worst kind of red. Splitting on powers of ten covers the forms
+   * esbuild actually emits and still tracks the constant if it changes.
+   */
+  const spellings = (value: number) => {
+    const forms = new Set([String(value)]);
+    for (let exponent = 1; exponent <= 9; exponent += 1) {
+      const mantissa = value / 10 ** exponent;
+      if (Number.isInteger(mantissa)) forms.add(`${mantissa}e${exponent}`);
+    }
+    return [...forms];
+  };
+
+  it("ships the timer in the built script", () => {
+    expect(napScripts.length, "no built script carries the nap's storage key").toBeGreaterThan(0);
+  });
+
+  it("times the nap to the length the page promises", () => {
+    const wanted = spellings(taughtMinutes * 60_000);
+    const carrying = napScripts.filter((source) =>
+      wanted.some((form) => source.includes(form)),
+    );
+    expect(
+      carrying.length,
+      `the home page promises ${taughtMinutes} minutes, so the timer should carry ${taughtMinutes * 60_000}ms (any of ${wanted.join(", ")}); no built script does`,
+    ).toBeGreaterThan(0);
+  });
+
+  it("stores the nap as an expiry, so it reverts without being clicked", () => {
+    // A boolean would make the nap permanent until a second click, which is a
+    // different feature and a broken promise. The pre-paint script is inline
+    // and unminified in every page, so the expiry is readable there: it
+    // compares against now, and clears the key once past.
+    const head = read("index.html");
+    expect(/until\s*>\s*Date\.now\(\)/.test(head), "the pre-paint script does not compare the nap's expiry against now").toBe(true);
+    expect(/removeItem\(/.test(head), "the pre-paint script never clears an expired nap").toBe(true);
+  });
+});
