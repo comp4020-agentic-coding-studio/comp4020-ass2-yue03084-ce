@@ -134,19 +134,46 @@ describe("a real deck, linked from its lecture", () => {
   // `slides` is a string with a path regex, so a lecture can advertise a deck
   // that was never written and the build stays green — the regex checks the
   // shape of the path, never that anything is at the end of it.
-  const withSlides = nodesOfType("lectures").filter((node) => typeof node.meta?.slides === "string");
+  const lectures = nodesOfType("lectures");
+  const withSlides = lectures.filter((node) => typeof node.meta?.slides === "string");
 
   it("has at least one lecture carrying a deck", () => {
+    // The deliverable's floor, kept as its own test because it is the line
+    // being marked. The next test is this course's stronger promise.
     expect(withSlides.length).toBeGreaterThan(0);
   });
 
-  it("built every deck that a lecture links to", () => {
+  it("links a deck from every lecture, not just the one the brief requires", () => {
+    // Once every lecture had a deck, "at least one" stopped describing the
+    // site: drop a `slides:` line and the filter above simply stops seeing
+    // that lecture, so the floor still passes and a lecture page quietly
+    // loses its deck link. Measured: a removed `slides:` line was invisible
+    // to this suite until this test existed.
+    const without = lectures
+      .filter((node) => typeof node.meta?.slides !== "string")
+      .map((node) => node.id)
+      .sort();
+    expect(without, "lectures with no deck linked").toEqual([]);
+  });
+
+  it("built every deck that a lecture links to, with slides on it", () => {
+    // Reveal renders one `<section>` per slide, so counting them is the
+    // difference between "a deck route that built" and a deck with anything
+    // on it. This was a 500-byte floor, which measured nothing: the Reveal
+    // shell alone is ~2,950 bytes, so a deck gutted to a single slide cleared
+    // it by a factor of five and the suite stayed green. The twelve built
+    // decks carry 10 or 11 sections each; four is well under that and still
+    // catches a deck with nothing in it.
+    const MINIMUM_SLIDES = 4;
     for (const lecture of withSlides) {
       const slides = String(lecture.meta?.slides);
       const built = join(dist, slides.replace(/^\//, ""), "index.html");
       expect(existsSync(built), `${lecture.id} links ${slides}, which was not built`).toBe(true);
-      // A deck that built but is empty is the same broken promise.
-      expect(readFileSync(built, "utf8").length, `${slides} built empty`).toBeGreaterThan(500);
+      const count = (readFileSync(built, "utf8").match(/<section/g) ?? []).length;
+      expect(
+        count,
+        `${slides} built with ${count} slide${count === 1 ? "" : "s"}, fewer than ${MINIMUM_SLIDES}`,
+      ).toBeGreaterThanOrEqual(MINIMUM_SLIDES);
     }
   });
 });
