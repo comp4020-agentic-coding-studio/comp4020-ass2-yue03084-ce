@@ -1,79 +1,63 @@
 # Process overview
 
-<!-- TEMPLATE: this sentinel is left here ON PURPOSE, by the agent, and Celeste
-     deletes it when the sections below are written.
-
-     `pnpm check:evidence` greps for the string `TEMPLATE:` and fails while it is
-     present, so this file keeps the pre-ship gate red until the account exists.
-     That is the intended state, not an oversight. The alternative — an empty
-     skeleton with the sentinel stripped — makes the gate green over a file with
-     no account in it, and a green gate that means nothing is worse than a red
-     one that means what it says.
-
-     The headings, the questions under them, and the citation format are the
-     agent's. Every word of the account itself is yours: this file is graded as
-     your own first-person record of what you decided and why, and 45% of the
-     deliverable's mark is process. An account you wrote in a rush is worth more
-     here than a polished one you didn't.
-
-     Length: 400-600 words, per the spec. The two H2s below are the shape the
-     template shipped; add or split headings if the story wants them. -->
-
 ## What I built
 
-<!-- One paragraph: the thing, and the idea behind it.
+SLOP1227 *Introduction to Naps*: a twelve-week course arguing that the nap is a
+biological need modern work schedules erased. It was not my first idea. I had
+planned a course on canned laughter and written the whole twelve-week structure
+for it before dropping it ([`342bae3`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/342bae3)),
+because the more I looked at it the further it ran past what I actually knew —
+I could not have designed or defended a semester of it. Naps were easier to get
+hold of, and inside what I already understood.
 
-     You already have the sentence this whole site was built around — it is in
-     `src/course-config.ts` as the course description, and the home page
-     distributes it across its headings. This paragraph is not that sentence
-     again: it is why you chose a course about naps, and what you were trying to
-     make the site do that a generic course site would not. -->
+I wanted the site to do the thing it describes rather than only describe it, so
+the course has a Nap Mode: the page dims, body text grows, the navigation
+collapses, and it puts itself back after twenty minutes — Week 2's ideal nap
+length, read from one constant rather than typed anywhere
+([`d74a9f0`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/d74a9f0)).
+
+I decided a good course is complete, closed, and interesting. Complete I partly
+inherited from the brief, and I turned it into checks: exactly weeks 1–12, a
+deck that really exists at the end of its path, weights summing to 100
+([`a3094bd`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/a3094bd),
+[`7e7b70a`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/7e7b70a)).
+Closed was mine and the brief never asked for it: weeks 7, 8, 9 and 12 each
+produce one component of the final policy proposal — the workplace map, the
+costing, the named beneficiary, and the objections it has to survive — so the
+40% assessment is assembled across the semester instead of set at the end
+([`91859ec`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/91859ec)).
 
 ## How I got here
 
-<!-- The account of the process: how the work actually went, and how you knew
-     the result was right. Any order that makes it clear.
+The turning point was
+[`505f0db`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/505f0db).
+Driving the built page in a browser found three real Nap Mode bugs and two
+contrast failures, and not one of them could ever have turned `pnpm check` red.
+After that commit every Nap Mode change carries a measured number instead of an
+assertion.
 
-     Four questions worth answering somewhere in here. They are the parts a
-     marker cannot reconstruct from the repo, which is exactly why they are
-     worth your words:
+The clearest place I overruled the agent was
+[`d98e299`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/d98e299).
+I noticed the answers in a long session getting worse, so I started a fresh one
+and had the harness audited against `package.json` and the workflow rather than
+against what it already said. Three claims in it were wrong: two bullets had
+lint running after the build when it runs before, and the ship deadline pointed
+at the crit instead of noon on 21 September, a date the file never stated at
+all. What I overruled was the assumption that something already written down
+was already true.
 
-     1. WHICH COMMIT WAS THE ACTUAL TURNING POINT, AND WHY?
-        Not the biggest diff — the one after which the work went differently.
-        Cite it. If the turning point was a conversation rather than a commit,
-        say that and cite the commit it produced.
+One decision I kept out of `CLAUDE.md` on purpose: the spec tests assert
+`dist/api/index.json`, not frontmatter, so they check what the course
+*publishes* rather than what a page happens to be built from. The same commit
+reads the course code back from the API instead of the literal in the test file,
+because the code being right and the code being on the page are two promises,
+not one fact written twice. I left it out because it only comes up when I am
+writing a spec test, which happened a handful of times all semester, and
+`CLAUDE.md` is loaded into every session — a rule that fires twice does not earn
+that space.
 
-     2. WHICH DECISION DID YOU DELIBERATELY LEAVE OUT OF THE HARNESS?
-        `CLAUDE.md` is read as process evidence, and it is a record of what you
-        chose to make the agent obey. Something you decided and did NOT write
-        down there is the more interesting half: what was it, and why did it not
-        belong in a file that loads into every session?
-
-     3. WHERE DID YOU OVERRULE THE AGENT, AND WAS THAT RIGHT?
-        There is at least one such point in this repo's history. A process
-        account that reports only the agent being useful is not an account of a
-        process.
-
-     4. HOW DID YOU KNOW? For one specific claim about the finished site, say
-        what you actually checked, not that you checked. `pnpm check` passing is
-        not evidence you looked at the page.
-
-     CITATIONS. Markers follow these rather than trawling the repo, so cite as
-     you go. The link text is the hash, the target is this repo:
-
-       one commit: [`<sha>`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/<sha>)
-       a range:    [`<from>...<to>`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/compare/<from>...<to>)
-
-     `pnpm check:evidence` resolves every SHA you cite against this repo, so a
-     typo'd or invented hash fails the gate rather than reaching a marker. To
-     see the trail and pick from it:
-
-       git log --oneline --reverse
-
-     To pair a prompt with the commit it produced, quote the prompt — curated,
-     not a transcript — next to the citation, as a blockquote.
-
-     Screenshots are welcome where one carries the point better than a sentence.
-     Commit the image and link it with a RELATIVE path, which is what makes it
-     render on GitHub: `![alt](docs/before.png)`. Images don't count towards the
-     word count and don't replace the citation. -->
+How I knew the checks were worth anything: I broke the build first. I mutated
+the built API to `SLOP1500` and watched three tests go red before I trusted them
+([`d37ed26`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-yue03084-ce/commit/d37ed26)),
+and did the same to the earlier three by removing a session, repointing a deck
+and shaving a weight. A test that has never failed is not yet evidence.
